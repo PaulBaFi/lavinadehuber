@@ -13,6 +13,7 @@ export const contacto = {
   google_maps_embed:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15494.664287895088!2d-76.2089478!3d-13.7083049!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9110e2c2f6d5e7d5%3A0x6d9f7a9f7a9f7a9f!2sPisco%2C%20Peru!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus",
   phone: "+51 936 832 504",
+  whatsapp: "+51936832504",
   social: {
     facebook: "https://www.facebook.com/RestauranteHuberPisco/",
     instagram: "#",

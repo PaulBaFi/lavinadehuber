@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { videoCarta, todosLosPlatos, categorias } from "@/lib/data";
+import { Image } from "astro:assets";
 ---
 
 <BaseLayout title="Carta | La Viña de Huber" desc="">
@@ -34,8 +35,8 @@ import { videoCarta, todosLosPlatos, categorias } from "@/lib/data";
   </header>
 
   <div class="bg-surface-accent/50 py-24 font-body">
-    <div class="container mx-auto px-4 flex flex-col lg:flex-row gap-12">
-      <aside class="lg:w-1/4 lg:sticky lg:top-32 h-fit z-30">
+    <div class="container mx-auto flex flex-col lg:flex-row gap-12">
+      <aside class="lg:w-1/4 lg:sticky lg:top-32 h-fit z-30 px-4">
         <div class="relative pl-6 border-l border-gray-200">
           <div
             class="absolute -left-px top-0 w-px h-12 bg-brands-primary shadow-[0_0_10px_rgba(var(--color-primary-rgb),0.5)]"
@@ -108,7 +109,7 @@ import { videoCarta, todosLosPlatos, categorias } from "@/lib/data";
         {
           categorias.map((cat) => (
             <section id={cat.id} class="pb-8">
-              <div class="flex justify-between items-end mb-8 border-b border-gray-200 pb-4">
+              <div class="px-4 flex justify-between items-end mb-8 border-b border-gray-200 pb-4">
                 <div>
                   <h2 class="text-4xl font-title font-bold text-ink-primary italic uppercase">
                     {cat.nombre}
@@ -147,7 +148,7 @@ import { videoCarta, todosLosPlatos, categorias } from "@/lib/data";
               </div>
 
               <div class={`swiper swiper-${cat.id} pb-12!`}>
-                <div class="swiper-wrapper">
+                <div class="swiper-wrapper px-4">
                   {todosLosPlatos
                     .filter((plato) => plato.cat === cat.id)
                     .sort((a, b) => {
@@ -158,8 +159,12 @@ import { videoCarta, todosLosPlatos, categorias } from "@/lib/data";
                     .map((plato) => (
                       <div class="swiper-slide h-auto max-w-64 md:max-x-auto">
                         <div class="group relative aspect-3/4 w-full overflow-hidden bg-ink-primary shadow-xl transition-all duration-500 hover:-translate-y-2 rounded-xl">
-                          <img
+                          <Image
                             src={plato.imagen}
+                            alt={plato.nombre}
+                            width={100}
+                            height={100}
+                            loading="eager"
                             class="absolute inset-0 w-full h-full object-cover opacity-80 transition-all duration-1000 group-hover:scale-110 group-hover:opacity-60 grayscale-[0.3] group-hover:grayscale-0"
                           />
                           <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent z-10" />
@@ -178,13 +183,13 @@ import { videoCarta, todosLosPlatos, categorias } from "@/lib/data";
                             </span>
                           </div>
 
-                          <div class="absolute bottom-0 left-0 w-full p-6 z-20 flex flex-col justify-end min-h-[40%] translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
-                            <h3 class="text-2xl font-title font-bold mb-6 group-hover:mb-0 text-white italic leading-tight group-hover:text-brands-primary transition-colors">
+                          <div class="absolute bottom-0 left-0 w-full p-6 z-20 flex flex-col justify-end min-h-[40%] translate-y-0 lg:translate-y-8 lg:group-hover:translate-y-0 transition-transform duration-500">
+                            <h3 class="text-xl md:text-2xl font-title font-bold mb-2 lg:mb-6 lg:group-hover:mb-0 text-white italic leading-tight lg:group-hover:text-brands-primary transition-colors">
                               {plato.nombre}
                             </h3>
 
-                            <div class="max-h-0 opacity-0 overflow-hidden transition-all duration-500 ease-in-out group-hover:max-h-32 group-hover:opacity-100">
-                              <p class="text-gray-300 text-sm italic mb-6 leading-relaxed">
+                            <div class="max-h-fit lg:max-h-0 opacity-100 lg:opacity-0 overflow-hidden transition-all duration-500 ease-in-out lg:group-hover:max-h-32 lg:group-hover:opacity-100">
+                              <p class="text-gray-300 text-xs md:text-sm italic mb-4 lg:mb-6 leading-relaxed line-clamp-2 lg:line-clamp-none">
                                 "{plato.desc}"
                               </p>
 
@@ -192,7 +197,7 @@ import { videoCarta, todosLosPlatos, categorias } from "@/lib/data";
                                 data-plato={plato.nombre}
                                 data-precio={plato.precio}
                                 data-imagen={plato.imagen}
-                                class="btn-add-order w-full py-3 bg-white/10 backdrop-blur-md border border-white/20 text-white font-title text-[10px] uppercase tracking-[0.3em] hover:bg-brands-primary hover:text-black transition-all"
+                                class="btn-add-order w-full py-3 bg-brands-primary lg:bg-white/10 text-black lg:text-white backdrop-blur-md border border-white/20 font-title text-[10px] uppercase tracking-[0.3em] hover:bg-brands-primary hover:text-black transition-all active:scale-95"
                               >
                                 Añadir al pedido
                               </button>
@@ -247,6 +252,31 @@ import { videoCarta, todosLosPlatos, categorias } from "@/lib/data";
     scroll-behavior: smooth;
     scroll-padding-top: 100px;
   }
+
+  @media (max-width: 1024px) {
+    .group .translate-y-8 {
+      transform: translateY(0) !important;
+    }
+
+    .group .max-h-0 {
+      max-height: 200px !important;
+      opacity: 1 !important;
+      overflow: visible !important;
+    }
+
+    .group .opacity-0 {
+      opacity: 1 !important;
+    }
+
+    .from-black\/80 {
+      --tw-gradient-from: rgba(0, 0, 0, 0.9) var(--tw-gradient-from-position) !important;
+    }
+
+    .group h3 {
+      color: var(--color-brands-primary) !important;
+      margin-bottom: 0.5rem !important;
+    }
+  }
 </style>
 
 <link
@@ -266,8 +296,9 @@ import { videoCarta, todosLosPlatos, categorias } from "@/lib/data";
 
     catIds.forEach((id) => {
       new Swiper(`.swiper-${id}`, {
-        slidesPerView: 1.2,
-        spaceBetween: 24,
+        slidesPerView: 1.3,
+        spaceBetween: 16,
+        touchStartPreventDefault: false,
         loop: false,
         navigation: {
           nextEl: `.btn-next-${id}`,

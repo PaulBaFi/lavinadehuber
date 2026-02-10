@@ -2,6 +2,9 @@
 import { contacto, horario, imageReservar } from "@/lib/data";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Phone from "@/icons/Phone.astro";
+import BigArrowRight from "@/icons/BigArrowRight.astro";
+
+const wspNumber = contacto.whatsapp;
 ---
 
 <BaseLayout
@@ -38,7 +41,8 @@ import Phone from "@/icons/Phone.astro";
         La Mesa está <span class="text-brands-primary">Lista</span>
       </h1>
 
-      <div class="w-24 h-px bg-brands-primary mx-auto mb-8 animate-fade-in"></div>
+      <div class="w-24 h-px bg-brands-primary mx-auto mb-8 animate-fade-in">
+      </div>
     </div>
   </header>
 
@@ -128,7 +132,7 @@ import Phone from "@/icons/Phone.astro";
           </div>
         </aside>
 
-        <div class="lg:w-2/3 p-10 md:p-16 bg-white">
+        <div class="lg:w-2/3 px-6 py-10 md:p-16 bg-white">
           <div class="mb-12">
             <h2
               class="font-title text-4xl text-ink-primary italic font-bold mb-2"
@@ -151,7 +155,7 @@ import Phone from "@/icons/Phone.astro";
                   placeholder="Nombre"
                 />
                 <label
-                  class="absolute left-4 -top-3.5 text-ink-muted text-[10px] uppercase tracking-widest font-bold transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:left-0 peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:text-brands-primary pointer-events-none"
+                  class="absolute left-4 -top-3.5 text-ink-muted text-[10px] uppercase md:tracking-widest font-bold transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:left-0 peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:text-brands-primary pointer-events-none"
                   >Nombre Completo</label
                 >
               </div>
@@ -165,7 +169,7 @@ import Phone from "@/icons/Phone.astro";
                   placeholder="Teléfono"
                 />
                 <label
-                  class="absolute left-4 -top-3.5 text-ink-muted text-[10px] uppercase tracking-widest font-bold transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:left-0 peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:text-brands-primary pointer-events-none"
+                  class="absolute left-4 -top-3.5 text-ink-muted text-[10px] uppercase md:tracking-widest font-bold transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:left-0 peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:text-brands-primary pointer-events-none"
                   >Teléfono de Contacto</label
                 >
               </div>
@@ -174,7 +178,7 @@ import Phone from "@/icons/Phone.astro";
             <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10">
               <div class="space-y-2">
                 <label
-                  class="text-[10px] uppercase text-ink-muted tracking-widest font-bold"
+                  class="text-[10px] uppercase text-ink-muted md:tracking-widest font-bold"
                   >Fecha</label
                 >
                 <input
@@ -186,7 +190,7 @@ import Phone from "@/icons/Phone.astro";
               </div>
               <div class="space-y-2">
                 <label
-                  class="text-[10px] uppercase text-ink-muted tracking-widest font-bold"
+                  class="text-[10px] uppercase text-ink-muted md:tracking-widest font-bold"
                   >Hora</label
                 >
                 <input
@@ -198,7 +202,7 @@ import Phone from "@/icons/Phone.astro";
               </div>
               <div class="space-y-2">
                 <label
-                  class="text-[10px] uppercase text-ink-muted tracking-widest font-bold"
+                  class="text-[10px] uppercase text-ink-muted md:tracking-widest font-bold"
                   >Personas</label
                 >
                 <select
@@ -216,7 +220,7 @@ import Phone from "@/icons/Phone.astro";
 
             <div class="space-y-2">
               <label
-                class="text-[10px] uppercase text-ink-muted tracking-widest font-bold"
+                class="text-[10px] uppercase text-ink-muted md:tracking-widest font-bold"
                 >Notas Especiales (Opcional)</label
               >
               <textarea
@@ -229,24 +233,16 @@ import Phone from "@/icons/Phone.astro";
             <div class="pt-6">
               <button
                 type="submit"
-                class="w-full rounded-md bg-brands-primary/80 text-ink-primary py-6 text-lg uppercase font-bold hover:bg-brands-primary transition-all duration-500 shadow-2xl flex items-center justify-center gap-4 group"
+                class="w-full rounded-md bg-brands-primary/80 text-ink-primary py-3.5 md:py-6 text-lg uppercase font-bold hover:bg-brands-primary transition-all duration-500 shadow-2xl flex items-center justify-center gap-2 group"
               >
-                Confirmar Disponibilidad
-                <svg
-                  class="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-500"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  viewBox="0 0 24 24"
-                  ><path d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                  ></path></svg
-                >
+                Confirmar <span class="hidden md:block">Disponibilidad</span>
+                <BigArrowRight size="18" />
               </button>
               <p
                 class="text-center text-xs md:text-sm text-ink-muted mt-6 italic tracking-wide"
               >
-                Nuestro equipo de reservas se contactará con usted en menos de 15
-                minutos.
+                Nuestro equipo de reservas se contactará con usted en menos de
+                15 minutos.
               </p>
             </div>
           </form>
@@ -276,9 +272,7 @@ import Phone from "@/icons/Phone.astro";
   }
 </style>
 
-<script is:inline>
-  import { contacto } from "@/lib/data";
-
+<script is:inline define:vars={{ wspNumber }}>
   const form = document.getElementById("form-pagina-reserva");
 
   form.onsubmit = (e) => {
@@ -286,7 +280,6 @@ import Phone from "@/icons/Phone.astro";
     const fd = new FormData(form);
     const d = Object.fromEntries(fd);
 
-    const whatsappNum = contacto.phone.trim();
     const text =
       `*SOLICITUD DE RESERVA*%0A` +
       `--------------------------%0A` +
@@ -297,6 +290,6 @@ import Phone from "@/icons/Phone.astro";
       `*Teléfono:* ${d.telefono}%0A` +
       `*Notas:* ${d.notas || "Sin notas"}`;
 
-    window.open(`https://wa.me/${whatsappNum}?text=${text}`, "_blank");
+    window.open(`https://wa.me/${wspNumber}?text=${text}`, "_blank");
   };
 </script>
