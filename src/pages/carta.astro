@@ -1,0 +1,321 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { videoCarta, todosLosPlatos, categorias } from "@/lib/data";
+---
+
+<BaseLayout title="Carta | La Viña de Huber" desc="">
+  <header class="relative w-full h-[50dvh] overflow-hidden flex items-center">
+    <video
+      class="absolute inset-0 w-full h-full object-cover z-0"
+      src={videoCarta}
+      muted
+      loop
+      autoplay
+      playsinline></video>
+
+    <div
+      class="absolute inset-0 bg-linear-to-b from-black/70 via-black/40 to-transparent z-10"
+    >
+    </div>
+
+    <div class="container mx-auto relative z-20 px-4 text-center">
+      <span
+        class="text-brands-primary font-bold tracking-[0.5em] uppercase text-[10px] mb-3 block animate-fade-in"
+      >
+        Sabor Real al Momento
+      </span>
+      <h1
+        class="text-white text-5xl md:text-7xl font-title font-bold italic drop-shadow-2xl"
+      >
+        Nuestra <span class="text-brands-primary">Carta</span>
+      </h1>
+      <div class="w-16 h-1 bg-brands-primary mx-auto mt-6 rounded-full"></div>
+    </div>
+  </header>
+
+  <div class="bg-surface-accent/50 py-24 font-body">
+    <div class="container mx-auto px-4 flex flex-col lg:flex-row gap-12">
+      <aside class="lg:w-1/4 lg:sticky lg:top-32 h-fit z-30">
+        <div class="relative pl-6 border-l border-gray-200">
+          <div
+            class="absolute -left-px top-0 w-px h-12 bg-brands-primary shadow-[0_0_10px_rgba(var(--color-primary-rgb),0.5)]"
+          >
+          </div>
+
+          <h2
+            class="font-title font-bold text-[10px] uppercase tracking-[0.4em] text-brands-primary mb-10"
+          >
+            Explorar Menú
+          </h2>
+
+          <nav class="flex flex-col gap-y-6">
+            {
+              categorias.map((cat) => (
+                <a
+                  href={`#${cat.id}`}
+                  data-category={cat.id}
+                  class="nav-link group relative flex items-center transition-all duration-500"
+                >
+                  <span class="dot absolute -left-[29px] w-2 h-2 rounded-full bg-gray-300 border-2 border-surface-accent group-hover:bg-brands-primary group-hover:scale-150 transition-all duration-500" />
+
+                  <div class="flex flex-col">
+                    <span class="category-text font-title text-sm uppercase tracking-[0.2em] text-ink-muted group-hover:text-ink-primary group-hover:translate-x-2 transition-all duration-500">
+                      {cat.nombre}
+                    </span>
+                    <span class="underline-decor w-0 h-px bg-brands-primary mt-1 group-hover:w-full transition-all duration-700 delay-100" />
+                  </div>
+                </a>
+              ))
+            }
+          </nav>
+
+          <div
+            class="mt-16 p-6 bg-ink-primary rounded-2xl relative overflow-hidden group"
+          >
+            <div class="relative z-10">
+              <p
+                class="text-white/60 text-[10px] uppercase tracking-widest mb-2"
+              >
+                ¿Mesa para hoy?
+              </p>
+              <p class="text-white font-title italic text-lg mb-4">
+                Reserva tu experiencia
+              </p>
+              <a
+                href="https://wa.me/..."
+                class="text-brands-primary text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all"
+              >
+                WhatsApp
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"><path d="M5 12h14m-7-7l7 7-7 7"></path></svg
+                >
+              </a>
+            </div>
+            <div
+              class="absolute inset-0 opacity-10 bg-[url('/assets/images/pattern-grill.png')] bg-size-[320px]"
+            >
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="lg:w-3/4 overflow-hidden">
+        {
+          categorias.map((cat) => (
+            <section id={cat.id} class="pb-8">
+              <div class="flex justify-between items-end mb-8 border-b border-gray-200 pb-4">
+                <div>
+                  <h2 class="text-4xl font-title font-bold text-ink-primary italic uppercase">
+                    {cat.nombre}
+                  </h2>
+                  <div class="w-16 h-1 bg-brands-primary mt-2" />
+                </div>
+
+                <div class="flex gap-2">
+                  <button
+                    class={`btn-prev-${cat.id} p-2 border border-gray-200 hover:bg-brands-primary transition-all`}
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button
+                    class={`btn-next-${cat.id} p-2 border border-gray-200 hover:bg-brands-primary transition-all`}
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class={`swiper swiper-${cat.id} pb-12!`}>
+                <div class="swiper-wrapper">
+                  {todosLosPlatos
+                    .filter((plato) => plato.cat === cat.id)
+                    .sort((a, b) => {
+                      if (a.popular && !b.popular) return -1;
+                      if (!a.popular && b.popular) return 1;
+                      return 0;
+                    })
+                    .map((plato) => (
+                      <div class="swiper-slide h-auto max-w-64 md:max-x-auto">
+                        <div class="group relative aspect-3/4 w-full overflow-hidden bg-ink-primary shadow-xl transition-all duration-500 hover:-translate-y-2 rounded-xl">
+                          <img
+                            src={plato.imagen}
+                            class="absolute inset-0 w-full h-full object-cover opacity-80 transition-all duration-1000 group-hover:scale-110 group-hover:opacity-60 grayscale-[0.3] group-hover:grayscale-0"
+                          />
+                          <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent z-10" />
+
+                          <div class="absolute top-4 left-4 z-20 flex flex-col gap-2">
+                            {plato.popular && (
+                              <span class="bg-brands-primary text-black text-[9px] font-bold px-3 py-1 uppercase tracking-[0.2em] shadow-lg">
+                                Popular
+                              </span>
+                            )}
+                          </div>
+
+                          <div class="absolute top-4 right-6 z-20">
+                            <span class="text-white font-title font-bold text-xl italic drop-shadow-lg">
+                              S/ {plato.precio}
+                            </span>
+                          </div>
+
+                          <div class="absolute bottom-0 left-0 w-full p-6 z-20 flex flex-col justify-end min-h-[40%] translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
+                            <h3 class="text-2xl font-title font-bold mb-6 group-hover:mb-0 text-white italic leading-tight group-hover:text-brands-primary transition-colors">
+                              {plato.nombre}
+                            </h3>
+
+                            <div class="max-h-0 opacity-0 overflow-hidden transition-all duration-500 ease-in-out group-hover:max-h-32 group-hover:opacity-100">
+                              <p class="text-gray-300 text-sm italic mb-6 leading-relaxed">
+                                "{plato.desc}"
+                              </p>
+
+                              <button
+                                data-plato={plato.nombre}
+                                data-precio={plato.precio}
+                                data-imagen={plato.imagen}
+                                class="btn-add-order w-full py-3 bg-white/10 backdrop-blur-md border border-white/20 text-white font-title text-[10px] uppercase tracking-[0.3em] hover:bg-brands-primary hover:text-black transition-all"
+                              >
+                                Añadir al pedido
+                              </button>
+                            </div>
+                          </div>
+
+                          <div class="absolute inset-4 border border-white/10 pointer-events-none z-30 group-hover:border-brands-primary/20 transition-colors" />
+                        </div>
+                      </div>
+                    ))}
+                </div>
+                <div class={`swiper-pagination pagination-${cat.id}`} />
+              </div>
+            </section>
+          ))
+        }
+      </main>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .swiper-pagination-bullet {
+    background: #cbd5e1;
+    opacity: 1;
+  }
+  .swiper-pagination-bullet-active {
+    background: var(--color-brands-primary) !important;
+    transform: scale(1.2);
+  }
+  .swiper {
+    overflow: visible !important;
+  }
+
+  .nav-link.active .dot {
+    background-color: var(--color-brands-primary) !important;
+    transform: scale(1.5);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  }
+
+  .nav-link.active .category-text {
+    color: #1a1a1a !important;
+    transform: translateX(8px);
+    font-weight: bold;
+  }
+
+  .nav-link.active .underline-decor {
+    width: 100%;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+  }
+</style>
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+<script
+  is:inline
+  src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script
+  is:inline
+  src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const catIds = ["marinos", "brasas", "entradas"];
+
+    catIds.forEach((id) => {
+      new Swiper(`.swiper-${id}`, {
+        slidesPerView: 1.2,
+        spaceBetween: 24,
+        loop: false,
+        navigation: {
+          nextEl: `.btn-next-${id}`,
+          prevEl: `.btn-prev-${id}`,
+        },
+        pagination: {
+          el: `.pagination-${id}`,
+          clickable: true,
+        },
+        breakpoints: {
+          640: { slidesPerView: 2.2 },
+          1024: { slidesPerView: 3 },
+        },
+      });
+    });
+  });
+</script>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -70% 0px",
+      threshold: 0,
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute("id");
+
+          navLinks.forEach((link) => {
+            link.classList.remove("active");
+            if (link.getAttribute("data-category") === id) {
+              link.classList.add("active");
+            }
+          });
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions,
+    );
+    sections.forEach((section) => observer.observe(section));
+  });
+</script>

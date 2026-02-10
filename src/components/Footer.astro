@@ -1,0 +1,175 @@
+---
+import { contacto, horario } from "@/lib/data";
+import Phone from "@/icons/Phone.astro";
+import Location from "@/icons/Location.astro";
+
+const wsp = contacto.phone.trim();
+---
+
+<footer id="contacto" class="bg-surface-dark text-white pt-20 pb-10">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+      <div class="space-y-6">
+        <a
+          href="/"
+          class="text-3xl font-bold tracking-tighter font-title inline-block"
+        >
+          <span class="text-brands-primary">LA VIÑA</span> DE HUBER
+        </a>
+        <p class="text-gray-400 font-body leading-relaxed text-sm">
+          Tradición y sabor en el corazón de Pisco. Expertos en fusionar la
+          frescura del mar con el poder de las brasas.
+        </p>
+        <div class="flex gap-4">
+          <a
+            href={contacto.social.facebook}
+            class="w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-brands-primary hover:text-black transition-all duration-300"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              ><path
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+              ></path></svg
+            >
+          </a>
+          <a
+            href={contacto.social.instagram}
+            class="w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-brands-primary hover:text-black transition-all duration-300"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              ><path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+              ></path></svg
+            >
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h4
+          class="text-xl font-bold font-title text-brands-primary mb-6 flex items-center gap-2"
+        >
+          <span class="w-8 h-px bg-brands-primary/30"></span> Horario
+        </h4>
+        <ul class="space-y-3 font-body text-gray-400 text-sm">
+          {
+            horario.map((item) => (
+              <li
+                class={`flex justify-between border-b border-white/5 pb-1 ${item.dia === "Domingo" ? "text-white font-bold" : ""}`}
+              >
+                <span>{item.dia}:</span>
+                <span class="text-white">
+                  {item.hora_cierre
+                    ? `${item.hora_apertura} - ${item.hora_cierre}`
+                    : "Cerrado"}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h4
+          class="text-xl font-bold font-title text-brands-primary mb-6 flex items-center gap-2"
+        >
+          <span class="w-8 h-px bg-brands-primary/30"></span> Contacto
+        </h4>
+        <ul class="space-y-6 font-body text-gray-400 text-sm">
+          <li class="flex items-start gap-3">
+            <div class="text-brands-primary shrink-0"><Location /></div>
+            <a
+              href={`mailto:${contacto.address}`}
+              class="text-white font-bold text-lg hover:text-brands-primary transition-colors"
+            >
+              {contacto.address}
+            </a>
+          </li>
+          <li class="flex items-center gap-3">
+            <div class="text-brands-primary shrink-0"><Phone /></div>
+            <a
+              href={`https://wa.me/${wsp}`}
+              class="text-white font-bold text-lg hover:text-brands-primary transition-colors"
+            >
+              {contacto.phone}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-1">
+        <h4
+          class="text-xl font-bold font-title text-brands-primary mb-6 flex items-center gap-2"
+        >
+          <span class="w-8 h-px bg-brands-primary/30"></span> Ubicación
+        </h4>
+        <div
+          class="relative rounded-2xl overflow-hidden group h-48 border border-white/10"
+        >
+          <div
+            class="absolute inset-0 bg-brands-primary/10 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"
+          >
+          </div>
+
+          <iframe
+            src={contacto.google_maps_embed}
+            class="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 contrast-125"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"></iframe>
+
+          <a
+            href={contacto.google_maps}
+            target="_blank"
+            class="absolute bottom-3 right-3 z-20 bg-white text-black text-[10px] font-bold px-4 py-2 rounded-lg shadow-xl uppercase tracking-tighter sm:hidden hover:bg-brands-primary transition-colors"
+          >
+            Abrir GPS
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-ink-muted text-xs font-body tracking-widest uppercase"
+    >
+      <p>
+        © {new Date().getFullYear()} LA VIÑA DE HUBER. TODOS LOS DERECHOS RESERVADOS.
+      </p>
+      <div class="flex gap-6">
+        <button
+          onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+          class="group flex items-center gap-2 focus:outline-none cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="group-hover:text-brands-primary"
+          >
+            <path d="m18 15-6-6-6 6"></path>
+          </svg>
+          <span
+            class="uppercase text-ink-muted group-hover:text-brands-primary transition-colors duration-500"
+          >
+            Volver arriba
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</footer>

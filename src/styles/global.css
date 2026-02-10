@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brands-primary: #d4af37; /* Dorado/Sazón */
+
+  --color-surface-light: #ffffff;
+  --color-surface-accent: #f8f5f0; /* Un tono crema suave para secciones */
+  --color-surface-dark: #1a1a1a; /* Negro carbón para parrillas */
+
+  --color-ink-primary: #1e293b; /* Slate oscuro */
+  --color-ink-muted: #64748b; /* Slate suave para descripciones */
+
+  --color-b-base: #e2e8f0;
+  --color-b-accent: #d4af37;
+
+  --font-title: "PTSerif", serif;
+  --font-body: "LiberationSerif", serif;
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-surface-light text-ink-primary font-body;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-title font-bold;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@font-face {
+  font-family: "LiberationSerif";
+  src: url("/fonts/LiberationSerif/LiberationSerif-Regular.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "LiberationSerif";
+  src: url("/fonts/LiberationSerif/LiberationSerif-Italic.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "LiberationSerif";
+  src: url("/fonts/LiberationSerif/LiberationSerif-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "LiberationSerif";
+  src: url("/fonts/LiberationSerif/LiberationSerif-BoldItalic.woff2")
+    format("woff2");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PTSerif";
+  src: url("/fonts/PTSerif/PTSerif-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PTSerif";
+  src: url("/fonts/PTSerif/PTSerif-Italic.woff2") format("woff2");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PTSerif";
+  src: url("/fonts/PTSerif/PTSerif-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PTSerif";
+  src: url("/fonts/PTSerif/PTSerif-BoldItalic.woff2") format("woff2");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
