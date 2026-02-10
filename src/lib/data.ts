@@ -16,7 +16,7 @@ export const contacto = {
   whatsapp: "+51936832504",
   social: {
     facebook: "https://www.facebook.com/RestauranteHuberPisco/",
-    instagram: "#",
+    instagram: "https://www.instagram.com/lavinadehuber_oficial/",
   },
 };
 

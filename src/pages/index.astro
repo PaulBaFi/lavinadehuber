@@ -94,8 +94,10 @@ const specialties = todosLosPlatos.slice(0, 6);
 
   <section class="py-18 md:py-32 bg-white overflow-hidden">
     <div class="container mx-auto px-4">
-      <div class="flex flex-col lg:flex-row items-center gap-16">
-        <div class="lg:w-1/2 relative">
+      <div
+        class="flex flex-col-reverse lg:flex-row items-center gap-8 md:gap-16"
+      >
+        <div class="lg:w-1/2 relative animate-float">
           <div
             class="absolute -top-10 -left-10 w-64 h-64 bg-brands-primary/10 rounded-full blur-3xl"
           >
@@ -272,5 +274,21 @@ const specialties = todosLosPlatos.slice(0, 6);
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
   }
 </style>

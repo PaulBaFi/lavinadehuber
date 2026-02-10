@@ -201,7 +201,6 @@ const { title, desc } = Astro.props;
   document.addEventListener("DOMContentLoaded", () => {
     let rawCart = JSON.parse(localStorage.getItem("hubers_cart")) || [];
 
-    // CORRECCIÓN: Asegura que los productos viejos tengan cantidad 1 si no la tienen
     let cart = rawCart.map((item) => ({
       ...item,
       cantidad: item.cantidad || 1,
@@ -306,7 +305,6 @@ const { title, desc } = Astro.props;
       saveCart();
     };
 
-    // Botones de la carta
     document.addEventListener("click", (e) => {
       const btn = e.target.closest(".btn-add-order");
       if (btn) {
@@ -323,7 +321,6 @@ const { title, desc } = Astro.props;
       }
     });
 
-    // Enlaces de apertura y cierre
     document
       .getElementById("cart-toggle")
       ?.addEventListener("click", () => window.toggleCart(true));
@@ -337,7 +334,6 @@ const { title, desc } = Astro.props;
       .getElementById("cart-overlay")
       ?.addEventListener("click", () => window.toggleCart(false));
 
-    // WhatsApp Confirmación
     const wspBtn = document.getElementById("whatsapp-confirm");
     if (wspBtn) {
       wspBtn.onclick = () => {

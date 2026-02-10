@@ -44,10 +44,10 @@ import { equipo, imageNosotros } from "@/lib/data";
     </div>
   </header>
 
-  <section class="py-24 bg-white relative z-10">
+  <section class="py-12 md:py-24 bg-white relative z-10">
     <div class="container mx-auto px-4">
       <div
-        class="max-w-4xl mx-auto space-y-12 font-body text-lg leading-relaxed text-ink-muted"
+        class="max-w-4xl mx-auto space-y-6 md:space-y-12 font-body text-lg leading-relaxed text-ink-muted"
       >
         <p
           class="first-letter:text-7xl first-letter:font-title first-letter:font-bold first-letter:text-brands-primary first-letter:mr-3 first-letter:float-left"
@@ -75,7 +75,7 @@ import { equipo, imageNosotros } from "@/lib/data";
           mantener la calidad que siempre nos ha caracterizado.
         </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 py-4 md:py-8">
           <div
             class="aspect-square bg-surface-accent rounded-3xl overflow-hidden shadow-2xl group"
           >
@@ -86,7 +86,7 @@ import { equipo, imageNosotros } from "@/lib/data";
             />
           </div>
           <div
-            class="aspect-3/4 bg-surface-dark rounded-3xl overflow-hidden shadow-2xl mt-12 group"
+            class="aspect-3/4 bg-surface-dark rounded-3xl overflow-hidden shadow-2xl md:mt-12 group"
           >
             <img
               src={imagenHistoriaDos}
@@ -99,53 +99,51 @@ import { equipo, imageNosotros } from "@/lib/data";
     </div>
   </section>
 
-  <section class="py-24 bg-surface-dark text-white overflow-hidden">
+  <section class="py-12 md:py-24 bg-surface-dark text-white overflow-hidden">
     <div class="container mx-auto px-4">
-      <div
-        class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
-      >
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
         <div class="max-w-2xl">
-          <span
-            class="text-brands-primary font-bold tracking-[0.3em] uppercase text-xs mb-4 block"
-          >
+          <span class="text-brands-primary font-bold tracking-[0.3em] uppercase text-xs mb-4 block">
             NUESTRO EQUIPO
           </span>
-          <h2
-            class="text-5xl md:text-7xl font-title font-bold italic leading-tight"
-          >
+          <h2 class="text-5xl md:text-7xl font-title font-bold italic leading-tight">
             Nuestra <span class="text-brands-primary">Familia</span>
           </h2>
         </div>
         <div class="hidden md:block w-32 h-px bg-white/20 mb-4"></div>
       </div>
-
+  
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {
           equipo.map((persona) => (
             <div class="group relative">
-              <div class="relative aspect-4/5 overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition-all duration-700 group-hover:border-brands-primary/50 group-hover:-translate-y-2">
-                <div class="absolute inset-0 bg-linear-to-t from-surface-dark via-transparent to-transparent opacity-80 z-10" />
-
+              <div class="relative aspect-4/5 overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition-all duration-700 lg:group-hover:border-brands-primary/50 lg:group-hover:-translate-y-2">
+                
+                <div class="absolute inset-0 bg-linear-to-t from-surface-dark via-surface-dark/40 to-transparent opacity-90 lg:opacity-80 z-10" />
+  
                 <img
                   src={persona.image}
                   alt={persona.nombre}
-                  class="w-full h-full object-cover md:grayscale md:group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000"
+                  class="w-full h-full object-cover grayscale-0 lg:md:grayscale lg:group-hover:grayscale-0 lg:group-hover:scale-110 transition-all duration-1000"
                 />
-
-                <div class="absolute bottom-0 left-0 w-full p-8 z-20 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <p class="text-brands-primary text-[10px] uppercase tracking-[0.2em] font-bold mb-2 opacity-0 group-hover:opacity-100 transition-opacity delay-100">
+  
+                <div class="absolute bottom-0 left-0 w-full p-6 md:p-8 z-20 translate-y-0 lg:translate-y-4 lg:group-hover:translate-y-0 transition-transform duration-500">
+                  
+                  <p class="text-brands-primary text-[10px] uppercase tracking-[0.2em] font-bold mb-2 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity delay-100">
                     {persona.rol}
                   </p>
-                  <h3 class="text-3xl font-title font-bold italic mb-2">
+                  
+                  <h3 class="text-2xl md:text-3xl font-title font-bold italic mb-2">
                     {persona.nombre}
                   </h3>
-                  <p class="text-gray-400 text-sm leading-relaxed line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity delay-200">
+                  
+                  <p class="text-gray-300 md:text-gray-400 text-sm leading-relaxed line-clamp-3 md:line-clamp-2 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity delay-200">
                     {persona.desc}
                   </p>
                 </div>
               </div>
-
-              <div class="absolute -inset-2 bg-brands-primary/5 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
+  
+              <div class="hidden lg:block absolute -inset-2 bg-brands-primary/5 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
             </div>
           ))
         }
