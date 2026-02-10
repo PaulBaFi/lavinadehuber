@@ -63,7 +63,7 @@ export const todosLosPlatos = [
     precio: "45",
     desc: "Pesca del día, limón y ají limo.",
     cat: "marinos",
-    imagen: "/assets/images/foto2.png",
+    imagen: "/assets/images/platos/ceviche-tradicional.png",
     popular: true,
   },
   {
@@ -71,7 +71,7 @@ export const todosLosPlatos = [
     precio: "45",
     desc: "Pesca del día, limón y ají limo.",
     cat: "marinos",
-    imagen: "/assets/images/foto2.png",
+    imagen: "/assets/images/platos/camarones.png",
     popular: false,
   },
   {
@@ -79,7 +79,7 @@ export const todosLosPlatos = [
     precio: "45",
     desc: "Pesca del día, limón y ají limo.",
     cat: "marinos",
-    imagen: "/assets/images/foto2.png",
+    imagen: "/assets/images/platos/ceviche-tradicional.png",
     popular: false,
   },
   {
@@ -87,7 +87,7 @@ export const todosLosPlatos = [
     precio: "45",
     desc: "Pesca del día, limón y ají limo.",
     cat: "marinos",
-    imagen: "/assets/images/foto2.png",
+    imagen: "/assets/images/platos/ceviche-tradicional.png",
     popular: true,
   },
   {
@@ -95,7 +95,7 @@ export const todosLosPlatos = [
     precio: "42",
     desc: "Láminas de pescado en crema de ají.",
     cat: "marinos",
-    imagen: "/assets/images/foto2.png",
+    imagen: "/assets/images/platos/tiradito.png",
     popular: false,
   },
   {
@@ -103,7 +103,7 @@ export const todosLosPlatos = [
     precio: "58",
     desc: "Corte premium con papas nativas.",
     cat: "brasas",
-    imagen: "/assets/images/foto2.png",
+    imagen: "/assets/images/platos/conchas.png",
     popular: false,
   },
   {
@@ -111,7 +111,7 @@ export const todosLosPlatos = [
     precio: "35",
     desc: "Receta tradicional con aroma a sarmiento.",
     cat: "brasas",
-    imagen: "/assets/images/foto2.png",
+    imagen: "/assets/images/platos/foto2.png",
     popular: false,
   },
   {
@@ -119,7 +119,7 @@ export const todosLosPlatos = [
     precio: "38",
     desc: "Causa de papa amarilla con topping de ceviche.",
     cat: "entradas",
-    imagen: "/assets/images/foto2.png",
+    imagen: "/assets/images/platos/causa.png",
     popular: false,
   },
 ];
