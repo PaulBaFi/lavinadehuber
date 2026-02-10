@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar.astro";
 import Footer from "@/components/Footer.astro";
 import "../styles/global.css";
 import { contacto } from "@/lib/data";
+import BigArrowRight from "@/icons/BigArrowRight.astro";
 
 // Limpiamos el número por si tiene espacios
 const wspNumber = contacto.phone.replace(/\s+/g, "");
@@ -76,14 +77,14 @@ const { title, desc } = Astro.props;
 
         <div
           id="cart-items"
-          class="flex-1 overflow-y-auto p-8 space-y-6 bg-white custom-scrollbar"
+          class="flex-1 overflow-y-auto p-4 md:p-8 space-y-4 md:space-y-6 bg-white custom-scrollbar"
         >
         </div>
 
         <div
-          class="p-8 bg-surface-accent border-t border-b-base space-y-6 shadow-[0_-10px_30px_rgba(0,0,0,0.03)]"
+          class="p-4 md:p-8 bg-surface-accent border-t border-b-base space-y-4 md:space-y-6 shadow-lg"
         >
-          <div class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
             <div class="relative group">
               <input
                 type="text"
@@ -113,35 +114,25 @@ const { title, desc } = Astro.props;
             </div>
           </div>
 
-          <div class="pt-6">
-            <div class="flex justify-between items-center mb-6">
+          <div class="pt-2 md:pt-4">
+            <div class="flex justify-between items-center mb-4 md:mb-6">
               <span
-                class="font-body text-[11px] uppercase tracking-widest text-ink-muted"
-                >Total a Pagar</span
+                class="font-body text-[10px] uppercase tracking-widest text-ink-muted"
+                >Total</span
               >
               <span
                 id="cart-total"
-                class="font-title font-bold text-ink-primary text-4xl tracking-tighter"
+                class="font-title font-bold text-ink-primary text-3xl md:text-4xl"
                 >S/ 0.00</span
               >
             </div>
 
             <button
               id="whatsapp-confirm"
-              class="w-full bg-ink-primary text-brands-primary font-bold py-6 rounded-none uppercase text-[11px] tracking-[0.4em] hover:bg-black transition-all duration-500 shadow-2xl flex items-center justify-center gap-4 group active:scale-[0.98]"
+              class="w-full bg-ink-primary text-brands-primary font-bold py-4 md:py-6 rounded-none uppercase text-[10px] md:text-[11px] tracking-[0.3em] flex items-center justify-center gap-2 group"
             >
               Confirmar Orden
-              <svg
-                class="transform group-hover:translate-x-2 transition-transform duration-300"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
+              <BigArrowRight size="18" />
             </button>
             <p
               class="text-[9px] text-center text-ink-muted italic mt-4 uppercase tracking-widest opacity-60"
@@ -156,7 +147,6 @@ const { title, desc } = Astro.props;
 </html>
 
 <style is:global>
-  /* Scrollbar Minimalista */
   .custom-scrollbar::-webkit-scrollbar {
     width: 3px;
   }
@@ -209,25 +199,16 @@ const { title, desc } = Astro.props;
   };
 
   document.addEventListener("DOMContentLoaded", () => {
-    let cart = JSON.parse(localStorage.getItem("hubers_cart")) || [];
+    let rawCart = JSON.parse(localStorage.getItem("hubers_cart")) || [];
+
+    // CORRECCIÓN: Asegura que los productos viejos tengan cantidad 1 si no la tienen
+    let cart = rawCart.map((item) => ({
+      ...item,
+      cantidad: item.cantidad || 1,
+    }));
+
     const cartItemsContainer = document.getElementById("cart-items");
     const cartTotal = document.getElementById("cart-total");
-
-    document.addEventListener("click", (e) => {
-      const btn = e.target.closest(".btn-add-order");
-      if (btn) {
-        const { plato, precio, imagen } = btn.dataset;
-        window.addToCart(plato, precio, imagen);
-
-        const originalText = btn.innerText;
-        btn.innerText = "¡AÑADIDO!";
-        btn.classList.add("bg-brands-primary", "text-black");
-        setTimeout(() => {
-          btn.innerText = originalText;
-          btn.classList.remove("bg-brands-primary", "text-black");
-        }, 1000);
-      }
-    });
 
     const renderCart = () => {
       cartItemsContainer.innerHTML = "";
@@ -236,23 +217,37 @@ const { title, desc } = Astro.props;
         cartItemsContainer.innerHTML = `
             <div class="h-full flex flex-col items-center justify-center opacity-40 py-20">
               <svg class="mb-4" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-              <p class="italic font-body text-sm text-center">Aún no has elegido nada delicioso.</p>
+              <p class="italic font-body text-sm text-center">Tu bolsa está vacía.</p>
             </div>`;
       }
 
       let subtotal = 0;
+      let totalUnits = 0;
+
       cart.forEach((item, index) => {
-        subtotal += parseFloat(item.precio);
+        const itemPrice = parseFloat(item.precio) || 0;
+        const qty = parseInt(item.cantidad) || 1;
+        subtotal += itemPrice * qty;
+        totalUnits += qty;
+
         cartItemsContainer.innerHTML += `
-            <div class="flex items-center gap-5 group border-b border-b-base pb-6">
-              <div class="relative overflow-hidden w-20 h-20 shadow-md flex-shrink-0">
+            <div class="flex items-center gap-3 md:gap-5 group border-b border-b-base pb-4">
+              <div class="relative overflow-hidden w-14 h-14 md:w-20 md:h-20 shadow-sm shrink-0 rounded-lg">
                   <img src="${item.imagen}" class="w-full h-full object-cover">
               </div>
-              <div class="flex-1">
-                <h4 class="text-ink-primary text-[11px] font-bold uppercase tracking-widest mb-1 leading-tight">${item.nombre}</h4>
-                <p class="text-brands-primary text-xl font-title italic">S/ ${item.precio}</p>
+              <div class="flex-1 min-w-0">
+                <h4 class="text-ink-primary text-[10px] md:text-[11px] font-bold uppercase tracking-wide mb-1 truncate">${item.nombre}</h4>
+                <div class="flex items-center justify-between">
+                  <p class="text-brands-primary text-lg md:text-xl font-title italic">S/ ${item.precio}</p>
+                  
+                  <div class="flex items-center border border-gray-200 rounded-md bg-white overflow-hidden shadow-sm">
+                    <button onclick="window.updateQty(${index}, -1)" class="px-2 py-1 hover:bg-brands-primary hover:text-white transition-colors">-</button>
+                    <span class="px-3 py-1 text-xs font-bold bg-gray-50/50">${qty}</span>
+                    <button onclick="window.updateQty(${index}, 1)" class="px-2 py-1 hover:bg-brands-primary hover:text-white transition-colors">+</button>
+                  </div>
+                </div>
               </div>
-              <button onclick="window.removeFromCart(${index})" class="text-ink-muted/30 hover:text-red-500 transition-colors p-2 text-2xl">
+              <button onclick="window.removeFromCart(${index})" class="text-red-400/50 hover:text-red-500 transition-colors p-2 text-xl">
                 &times;
               </button>
             </div>`;
@@ -262,9 +257,9 @@ const { title, desc } = Astro.props;
 
       const counter = document.getElementById("cart-count");
       const pulse = document.getElementById("cart-pulse");
-      if (cart.length > 0) {
+      if (totalUnits > 0) {
         if (counter) {
-          counter.innerText = cart.length;
+          counter.innerText = totalUnits;
           counter.style.opacity = "1";
           counter.style.transform = "scale(1)";
         }
@@ -284,9 +279,26 @@ const { title, desc } = Astro.props;
     };
 
     window.addToCart = (nombre, precio, imagen) => {
-      cart.push({ nombre, precio, imagen });
+      const existing = cart.find((item) => item.nombre === nombre);
+      if (existing) {
+        existing.cantidad = (parseInt(existing.cantidad) || 1) + 1;
+      } else {
+        cart.push({ nombre, precio, imagen, cantidad: 1 });
+      }
       saveCart();
       window.toggleCart(true);
+    };
+
+    window.updateQty = (index, change) => {
+      const currentQty = parseInt(cart[index].cantidad) || 1;
+      const newQty = currentQty + change;
+
+      if (newQty <= 0) {
+        window.removeFromCart(index);
+      } else {
+        cart[index].cantidad = newQty;
+        saveCart();
+      }
     };
 
     window.removeFromCart = (index) => {
@@ -294,6 +306,24 @@ const { title, desc } = Astro.props;
       saveCart();
     };
 
+    // Botones de la carta
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest(".btn-add-order");
+      if (btn) {
+        const { plato, precio, imagen } = btn.dataset;
+        window.addToCart(plato, precio, imagen);
+
+        const originalText = btn.innerText;
+        btn.innerText = "¡AÑADIDO!";
+        btn.classList.add("bg-brands-primary", "text-black");
+        setTimeout(() => {
+          btn.innerText = originalText;
+          btn.classList.remove("bg-brands-primary", "text-black");
+        }, 1000);
+      }
+    });
+
+    // Enlaces de apertura y cierre
     document
       .getElementById("cart-toggle")
       ?.addEventListener("click", () => window.toggleCart(true));
@@ -307,6 +337,7 @@ const { title, desc } = Astro.props;
       .getElementById("cart-overlay")
       ?.addEventListener("click", () => window.toggleCart(false));
 
+    // WhatsApp Confirmación
     const wspBtn = document.getElementById("whatsapp-confirm");
     if (wspBtn) {
       wspBtn.onclick = () => {
@@ -314,23 +345,18 @@ const { title, desc } = Astro.props;
         const address = document.getElementById("cust-address").value.trim();
 
         if (!name || !address) {
-          alert("Por favor, ingresa tu nombre y dirección para el envío.");
+          alert("Por favor, ingresa tu nombre y dirección.");
           return;
         }
-
-        if (cart.length === 0) {
-          alert("Tu carrito está vacío.");
-          return;
-        }
+        if (cart.length === 0) return;
 
         const pedidoTexto = cart
-          .map((i) => `• ${i.nombre} (S/ ${i.precio})`)
+          .map((i) => `• ${i.cantidad}x ${i.nombre} (S/ ${i.precio} c/u)`)
           .join("%0A");
 
         const msg = `*NUEVO PEDIDO - LA VIÑA*%0A%0A*Cliente:* ${name}%0A*Dirección:* ${address}%0A%0A*PRODUCTOS:*%0A${pedidoTexto}%0A%0A*TOTAL:* ${cartTotal.innerText}%0A%0A_Enviado desde el sitio web._`;
 
         window.open(`https://wa.me/${wspNumber}?text=${msg}`, "_blank");
-
         cart = [];
         saveCart();
         window.toggleCart(false);
