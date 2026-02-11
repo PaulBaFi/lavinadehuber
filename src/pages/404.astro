@@ -1,0 +1,87 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BigArrowRight from "@/icons/BigArrowRight.astro";
+import { videoInicio } from "@/lib/data";
+---
+
+<BaseLayout
+  title="Página no encontrada"
+  desc="Lo sentimos, el plato que buscas no está en nuestro menú por ahora."
+>
+  <main
+    class="relative w-full h-[100dvh] overflow-hidden flex items-center justify-center text-center"
+  >
+    <video
+      class="absolute inset-0 w-full h-full object-cover z-0 blur-sm scale-105"
+      src={videoInicio}
+      muted
+      loop
+      autoplay
+      playsinline></video>
+
+    <div class="absolute inset-0 bg-black/70 z-10"></div>
+
+    <div class="container mx-auto relative z-20 px-4">
+      <div class="max-w-2xl mx-auto">
+        <span
+          class="text-brands-primary font-bold tracking-[0.5em] uppercase text-xs mb-4 block animate-fade-in"
+        >
+          Error 404
+        </span>
+
+        <h1
+          class="text-white text-7xl md:text-9xl font-title font-bold italic drop-shadow-2xl mb-4"
+        >
+          Ups<span class="text-brands-primary">!</span>
+        </h1>
+
+        <h2
+          class="text-white text-2xl md:text-3xl font-title font-light mb-8 leading-relaxed"
+        >
+          Parece que este plato <br class="hidden md:block" />
+          <span class="italic text-brands-primary">no salió de la cocina.</span>
+        </h2>
+
+        <div class="w-16 h-1 bg-brands-primary mx-auto mb-10 rounded-full">
+        </div>
+
+        <p
+          class="text-gray-300 text-lg font-body max-w-md mx-auto mb-12 opacity-90"
+        >
+          La página que buscas no existe o ha sido movida. Pero no te preocupes,
+          el fuego sigue encendido en nuestra carta principal.
+        </p>
+
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-6"
+        >
+          <a
+            href="/"
+            class="relative group overflow-hidden bg-brands-primary text-black px-10 py-4 rounded-xl font-bold text-lg shadow-xl transition-all duration-400 hover:-translate-y-1 w-full sm:w-auto"
+          >
+            <span class="relative z-10 flex items-center justify-center gap-2">
+              Volver al Inicio
+              <BigArrowRight size="18" />
+            </span>
+            <div
+              class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+            >
+            </div>
+          </a>
+
+          <a
+            href="/carta"
+            class="group px-10 py-4 rounded-xl font-medium text-lg text-white border-2 border-white/20 hover:border-brands-primary hover:text-brands-primary transition-all duration-300 backdrop-blur-md w-full sm:w-auto"
+          >
+            Explorar la Carta
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="absolute bottom-0 left-0 w-full h-64 bg-linear-to-t from-black to-transparent z-15"
+    >
+    </div>
+  </main>
+</BaseLayout>

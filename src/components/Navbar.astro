@@ -14,12 +14,12 @@ const navLinks = [
 ---
 
 <nav
-  class="fixed w-full z-50 transition-all duration-500 ease-in-out"
+  class="fixed w-full z-50 transition-all duration-500 ease-in-out animate-fade-in"
   id="main-nav"
 >
   <div
     id="top-bar"
-    class="bg-black/30 border-b border-white/10 py-2 transition-all duration-500 hidden md:block"
+    class="bg-black/30 border-b border-white/10 py-2 transition-all duration-500 hidden md:block animate-fade-in custom-delay-100"
   >
     <div
       class="container mx-auto px-4 flex justify-between items-center text-[10px] font-body tracking-widest text-white/80"
@@ -61,7 +61,7 @@ const navLinks = [
     <div class="container mx-auto px-4 flex justify-between items-center">
       <a
         href="/"
-        class="text-xl md:text-2xl font-bold tracking-tighter font-title"
+        class="text-xl md:text-2xl font-bold tracking-tighter font-title animate-fade-in custom-delay-200"
         id="nav-logo"
       >
         <span class="text-brands-primary">LA VIÑA </span><span
@@ -73,10 +73,11 @@ const navLinks = [
         {
           navLinks
             .filter((l) => l.name !== "Reservar")
-            .map((link) => (
+            .map((link, i) => (
               <a
                 href={link.href}
-                class="font-medium text-white/90 hover:text-brands-primary transition-colors font-body text-sm uppercase tracking-[0.2em] border-b border-transparent hover:border-brands-primary/50"
+                class="animate-fade-in font-medium text-white/90 hover:text-brands-primary transition-colors font-body text-sm uppercase tracking-[0.2em] border-b border-transparent hover:border-brands-primary/50"
+                style={`animation-delay: ${300 + i * 100}ms`}
               >
                 {link.name}
               </a>
@@ -84,7 +85,7 @@ const navLinks = [
         }
         <a
           href="/reservar"
-          class="bg-brands-primary text-black px-6 py-2.5 rounded-full font-bold hover:bg-white transition-all transform hover:scale-105 font-title shadow-lg"
+          class="bg-brands-primary text-black px-6 py-2.5 rounded-full font-bold hover:bg-white transition-all transform hover:scale-105 font-title animate-fade-in custom-delay-500 shadow-lg"
         >
           Reservar
         </a>
@@ -215,6 +216,40 @@ const navLinks = [
   </div>
 </nav>
 
+<style>
+  .mobile-link {
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+  }
+
+  .animate-fade-in-down {
+    opacity: 0;
+    animation: fadeInDown 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-fill-mode: both;
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  #main-nav {
+    animation: fadeInDown 1s ease-out both;
+  }
+
+  .nav-scrolled {
+    background-color: rgba(10, 10, 10, 0.8) !important;
+    backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+</style>
+
 <script>
   const nav = document.getElementById("main-nav");
   const topBar = document.getElementById("top-bar");
@@ -225,10 +260,8 @@ const navLinks = [
   const menu = document.getElementById("mobile-menu");
   const mobileFooter = document.getElementById("mobile-footer");
 
-  // Detectar si es Desktop (Tailwind md = 768px)
   const isDesktop = () => window.innerWidth >= 768;
 
-  // --- LÓGICA DE SCROLL ---
   window.addEventListener("scroll", () => {
     const isMenuOpen = !menu?.classList.contains("translate-x-full");
 
@@ -236,12 +269,10 @@ const navLinks = [
       nav?.classList.add("bg-surface-dark/95", "backdrop-blur-md", "shadow-lg");
       navContent?.classList.replace("py-4", "py-2");
 
-      // En scroll siempre ocultamos el topBar (si existe y es desktop)
       if (isDesktop()) {
         topBar?.classList.add("hidden");
       }
     } else {
-      // VOLVER AL TOP
       if (!isMenuOpen) {
         nav?.classList.remove(
           "bg-surface-dark/95",
@@ -250,7 +281,6 @@ const navLinks = [
         );
         navContent?.classList.replace("py-2", "py-4");
 
-        // SOLO mostramos el topBar si estamos en Desktop
         if (isDesktop()) {
           topBar?.classList.remove("hidden");
         }
@@ -258,13 +288,11 @@ const navLinks = [
     }
   });
 
-  // --- FUNCIÓN ABRIR ---
   openBtn?.addEventListener("click", () => {
     menu?.classList.remove("translate-x-full");
     mobileFooter?.classList.remove("opacity-0");
     document.body.style.overflow = "hidden";
 
-    // Forzamos el estado visual del nav al abrir
     nav?.classList.add("bg-surface-dark/95", "backdrop-blur-md");
 
     document.querySelectorAll(".mobile-link").forEach((el, i) => {
@@ -275,7 +303,6 @@ const navLinks = [
     });
   });
 
-  // --- FUNCIÓN CERRAR ---
   const closeMenu = () => {
     menu?.classList.add("translate-x-full");
     mobileFooter?.classList.add("opacity-0");
@@ -288,7 +315,6 @@ const navLinks = [
 
     if (window.scrollY <= 40) {
       nav?.classList.remove("bg-surface-dark/95", "backdrop-blur-md");
-      // Al cerrar en el top, solo el desktop recupera el topBar
       if (isDesktop()) {
         topBar?.classList.remove("hidden");
       }
@@ -301,7 +327,6 @@ const navLinks = [
     link.addEventListener("click", closeMenu);
   });
 
-  // Limpieza al redimensionar la pantalla (por si pasan de móvil a desktop con el menú abierto)
   window.addEventListener("resize", () => {
     if (isDesktop() && window.scrollY <= 40) {
       topBar?.classList.remove("hidden");
@@ -310,10 +335,3 @@ const navLinks = [
     }
   });
 </script>
-
-<style>
-  .mobile-link {
-    transform: translateY(20px);
-    transition: all 0.5s ease;
-  }
-</style>

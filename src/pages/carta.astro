@@ -5,32 +5,42 @@ import { Image } from "astro:assets";
 ---
 
 <BaseLayout title="Carta | La Viña de Huber" desc="">
-  <header class="relative w-full h-[50dvh] overflow-hidden flex items-center">
-    <video
-      class="absolute inset-0 w-full h-full object-cover z-0"
-      src={videoCarta}
-      muted
-      loop
-      autoplay
-      playsinline></video>
-
+  <header
+    class="relative w-full h-[50dvh] overflow-hidden flex items-center bg-surface-accent/50"
+  >
     <div
-      class="absolute inset-0 bg-linear-to-b from-black/70 via-black/40 to-transparent z-10"
+      class="absolute inset-0 z-0"
+      style="clip-path: ellipse(140% 100% at 50% 0%);"
     >
+      <video
+        class="absolute inset-0 w-full h-full object-cover z-0"
+        src={videoCarta}
+        muted
+        loop
+        autoplay
+        playsinline></video>
+
+      <div
+        class="absolute inset-0 bg-linear-to-b from-black/70 via-black/40 to-transparent z-10"
+      >
+      </div>
     </div>
 
-    <div class="container mx-auto relative z-20 px-4 text-center">
+    <div class="container mx-auto relative z-20 pt-10 px-4 text-center">
       <span
         class="text-brands-primary font-bold tracking-[0.5em] uppercase text-[10px] mb-3 block animate-fade-in"
       >
         Sabor Real al Momento
       </span>
       <h1
-        class="text-white text-5xl md:text-7xl font-title font-bold italic drop-shadow-2xl"
+        class="animate-fade-in text-white text-5xl md:text-7xl font-title font-bold italic drop-shadow-2xl"
       >
         Nuestra <span class="text-brands-primary">Carta</span>
       </h1>
-      <div class="w-16 h-1 bg-brands-primary mx-auto mt-6 rounded-full"></div>
+      <div
+        class="animate-fade-in w-16 h-1 bg-brands-primary mx-auto mt-6 rounded-full"
+      >
+      </div>
     </div>
   </header>
 
@@ -51,11 +61,12 @@ import { Image } from "astro:assets";
 
           <nav class="flex flex-col gap-y-6">
             {
-              categorias.map((cat) => (
+              categorias.map((cat, index) => (
                 <a
                   href={`#${cat.id}`}
                   data-category={cat.id}
-                  class="nav-link group relative flex items-center transition-all duration-500"
+                  class="nav-link group relative flex items-center transition-all animate-fade-in"
+                  style={`animation-delay: ${index * 100 + 400}ms`}
                 >
                   <span class="dot absolute -left-[29px] w-2 h-2 rounded-full bg-gray-300 border-2 border-surface-accent group-hover:bg-brands-primary group-hover:scale-150 transition-all duration-500" />
 
@@ -71,7 +82,7 @@ import { Image } from "astro:assets";
           </nav>
 
           <div
-            class="mt-16 p-6 bg-ink-primary rounded-2xl relative overflow-hidden group"
+            class="mt-16 p-6 bg-ink-primary rounded-2xl relative overflow-hidden group animate-fade-in"
           >
             <div class="relative z-10">
               <p
@@ -283,9 +294,7 @@ import { Image } from "astro:assets";
 
   .swiper {
     overflow: visible !important;
-    clip-path: inset(
-      -100px -100px -100px -100px
-    );
+    clip-path: inset(-100px -100px -100px -100px);
   }
 
   .swiper-wrapper {
@@ -307,15 +316,14 @@ import { Image } from "astro:assets";
     overflow: hidden;
   }
 
-  .shimmer-wrapper {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.05) 50%,
-      transparent 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
+  .btn-add-order {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .btn-add-order:active {
+    transform: scale(0.9) rotate(-1deg);
+    background-color: white;
+    color: black;
   }
 
   @keyframes shimmer {
@@ -325,6 +333,17 @@ import { Image } from "astro:assets";
     100% {
       background-position: 200% 0;
     }
+  }
+
+  .shimmer-wrapper {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite linear;
   }
 
   .skeleton-loader {
@@ -441,5 +460,22 @@ import { Image } from "astro:assets";
       observerOptions,
     );
     sections.forEach((section) => observer.observe(section));
+  });
+</script>
+
+<script is:inline>
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+        }
+      });
+    },
+    { threshold: 0.1 },
+  );
+
+  document.querySelectorAll(".reveal-section").forEach((section) => {
+    revealObserver.observe(section);
   });
 </script>

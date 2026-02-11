@@ -14,8 +14,11 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
   title="Nosotros"
   desc="Conoce la historia y el equipo detrás de La Viña de Huber."
 >
-  <header class="relative h-[40vh] min-h-[500px] overflow-hidden">
-    <div class="absolute inset-0 z-0" style="clip-path: inset(0 0 0 0);">
+  <header class="relative h-[45vh] min-h-[500px] overflow-hidden">
+    <div
+      class="absolute inset-0 z-0"
+      style="clip-path: ellipse(140% 100% at 50% 0%);"
+    >
       <div
         class="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat pointer-events-none"
         style={`background-image: url('${imageNosotros}'); z-index: -1;`}
@@ -27,7 +30,9 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
       </div>
     </div>
 
-    <div class="relative z-10 h-full flex items-center justify-center">
+    <div
+      class="relative z-10 h-full flex items-center justify-center pt-24 pb-12"
+    >
       <div class="container mx-auto px-4 text-center">
         <span
           class="text-brands-primary font-bold tracking-[0.4em] uppercase text-xs mb-4 block animate-fade-in"
@@ -35,13 +40,13 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
           Nuestra Herencia
         </span>
         <h1
-          class="animate-fade-in text-6xl md:text-7xl font-bold font-title text-white mb-8 italic drop-shadow-2xl"
+          class="animate-fade-in custom-delay-200 text-6xl md:text-7xl font-bold font-title text-white mb-8 italic drop-shadow-2xl"
         >
           Más que un sabor,<br />
           <span class="text-brands-primary">una historia.</span>
         </h1>
         <div
-          class="animate-fade-in w-24 h-1 bg-brands-primary mx-auto rounded-full"
+          class="animate-fade-in custom-delay-400 w-24 h-1 bg-brands-primary mx-auto rounded-full"
         >
         </div>
       </div>
@@ -54,7 +59,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
         class="max-w-4xl mx-auto space-y-6 md:space-y-12 font-body text-lg leading-relaxed text-ink-muted"
       >
         <p
-          class="first-letter:text-7xl first-letter:font-title first-letter:font-bold first-letter:text-brands-primary first-letter:mr-3 first-letter:float-left"
+          class="first-letter:text-7xl first-letter:font-title first-letter:font-bold first-letter:text-brands-primary first-letter:mr-3 first-letter:float-left reveal"
         >
           La historia de <strong class="text-ink-primary"
             >La Viña de Huber</strong
@@ -65,7 +70,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
           de nuestros fundadores Don Huber.
         </p>
 
-        <p>
+        <p class="reveal">
           Más adelante, nuestra fundadora Doña Micaela, quiso compartir su arte
           culinario elaborando exquisitos platos con insumos de nuestra
           provincia logrando gran aceptación entre los comensales que día a día
@@ -73,7 +78,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
           cariñosamente le llamamos.
         </p>
 
-        <p>
+        <p class="reveal">
           Nuestros platos son preparados al momento utilizando siempre productos
           frescos cuidando cada detalle de la presentación con el fin de
           mantener la calidad que siempre nos ha caracterizado.
@@ -83,26 +88,24 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
           class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 py-4 md:py-8"
         >
           <div
-            class="aspect-square bg-surface-accent rounded-3xl overflow-hidden shadow-2xl group"
+            class="aspect-square bg-surface-accent rounded-3xl overflow-hidden shadow-2xl group reveal"
           >
             <Image
               src={imagenHistoriaUno}
               alt="Local antiguo"
               width={400}
               height={400}
-              loading="lazy"
               class="w-full h-full object-cover md:grayscale md:group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
             />
           </div>
           <div
-            class="aspect-3/4 bg-surface-dark rounded-3xl overflow-hidden shadow-2xl md:mt-12 group"
+            class="aspect-3/4 bg-surface-dark rounded-3xl overflow-hidden shadow-2xl md:mt-12 group reveal delay-200"
           >
             <Image
               src={imagenHistoriaDos}
               alt="Chef cocinando"
               width={300}
               height={400}
-              loading="lazy"
               class="w-full h-full object-cover md:grayscale md:group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
             />
           </div>
@@ -114,13 +117,13 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
   <section class="py-12 md:py-24 bg-surface-dark text-white overflow-hidden">
     <div class="container mx-auto px-4">
       <div
-        class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
+        class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 reveal"
       >
         <div class="max-w-2xl">
           <span
             class="text-brands-primary font-bold tracking-[0.3em] uppercase text-xs mb-4 block"
           >
-            NUESTRO EQUIPO
+            EL EQUIPO
           </span>
           <h2
             class="text-5xl md:text-7xl font-title font-bold italic leading-tight"
@@ -133,8 +136,8 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {
-          equipo.map((persona) => (
-            <div class="group relative">
+          equipo.map((persona, index) => (
+            <div class={`group relative reveal delay-${(index + 1) * 100}`}>
               <div class="relative aspect-4/5 overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition-all duration-700 lg:group-hover:border-brands-primary/50 lg:group-hover:-translate-y-2">
                 <div class="absolute inset-0 bg-linear-to-t from-surface-dark via-surface-dark/40 to-transparent opacity-90 lg:opacity-80 z-10" />
 
@@ -143,26 +146,21 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
                   alt={persona.nombre}
                   width={400}
                   height={500}
-                  loading="lazy"
                   class="w-full h-full object-cover grayscale-0 lg:md:grayscale lg:group-hover:grayscale-0 lg:group-hover:scale-110 transition-all duration-1000"
                 />
 
                 <div class="absolute bottom-0 left-0 w-full p-6 md:p-8 z-20 translate-y-0 lg:translate-y-4 lg:group-hover:translate-y-0 transition-transform duration-500">
-                  <p class="text-brands-primary text-[10px] uppercase tracking-[0.2em] font-bold mb-2 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity delay-100">
+                  <p class="text-brands-primary text-[10px] uppercase tracking-[0.2em] font-bold mb-2">
                     {persona.rol}
                   </p>
-
                   <h3 class="text-2xl md:text-3xl font-title font-bold italic mb-2">
                     {persona.nombre}
                   </h3>
-
-                  <p class="text-gray-300 md:text-gray-400 text-sm leading-relaxed line-clamp-3 md:line-clamp-2 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity delay-200">
+                  <p class="text-gray-300 md:text-gray-400 text-sm leading-relaxed line-clamp-3 md:line-clamp-2">
                     {persona.desc}
                   </p>
                 </div>
               </div>
-
-              <div class="hidden lg:block absolute -inset-2 bg-brands-primary/5 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
             </div>
           ))
         }
@@ -180,3 +178,21 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
     }
   }
 </style>
+
+<script is:inline>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px",
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+</script>
