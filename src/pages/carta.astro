@@ -159,12 +159,20 @@ import { Image } from "astro:assets";
                     .map((plato) => (
                       <div class="swiper-slide h-auto max-w-64 md:max-x-auto">
                         <div class="group relative aspect-3/4 w-full overflow-hidden bg-ink-primary shadow-xl transition-all duration-500 hover:-translate-y-2 rounded-xl">
+                          <div class="skeleton-loader absolute inset-0 z-40 bg-ink-primary flex flex-col p-6 justify-end">
+                            <div class="w-20 h-4 bg-white/10 mb-4 animate-pulse rounded" />
+                            <div class="w-full h-8 bg-white/10 mb-2 animate-pulse rounded" />
+                            <div class="w-2/3 h-4 bg-white/10 animate-pulse rounded" />
+                            <div class="shimmer-wrapper absolute inset-0" />
+                          </div>
+
                           <Image
                             src={plato.imagen}
                             alt={plato.nombre}
-                            width={100}
-                            height={100}
+                            width={400}
+                            height={533}
                             loading="lazy"
+                            onload="this.parentElement.querySelector('.skeleton-loader').style.display='none'"
                             class="absolute inset-0 w-full h-full object-cover opacity-80 transition-all duration-1000 group-hover:scale-110 group-hover:opacity-60 grayscale-[0.3] group-hover:grayscale-0"
                           />
                           <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent z-10" />
@@ -224,12 +232,15 @@ import { Image } from "astro:assets";
     background: #cbd5e1;
     opacity: 1;
   }
+
   .swiper-pagination-bullet-active {
     background: var(--color-brands-primary) !important;
     transform: scale(1.2);
   }
+
   .swiper {
     overflow: visible !important;
+    min-height: 400px;
   }
 
   .nav-link.active .dot {
@@ -246,6 +257,35 @@ import { Image } from "astro:assets";
 
   .nav-link.active .underline-decor {
     width: 100%;
+  }
+
+  .skeleton-loader {
+    overflow: hidden;
+  }
+
+  .shimmer-wrapper {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  /* Aseguramos que el skeleton se oculte suavemente */
+  .skeleton-loader {
+    transition: opacity 0.5s ease-out;
   }
 
   html {
