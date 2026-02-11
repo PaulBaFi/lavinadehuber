@@ -350,7 +350,10 @@ const { title, desc } = Astro.props;
           alert("Por favor, ingresa tu nombre y dirección.");
           return;
         }
-        if (cart.length === 0) return;
+        if (cart.length === 0) {
+          alert("Aún no has agregado platos a tu pedido.");
+          return;
+        }
 
         const pedidoTexto = cart
           .map((i) => `• ${i.cantidad}x ${i.nombre} (S/ ${i.precio} c/u)`)
