@@ -1,5 +1,6 @@
 ---
 import { contacto, horario, imageReservar } from "@/lib/data";
+import { Image } from "astro:assets";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Phone from "@/icons/Phone.astro";
 import BigArrowRight from "@/icons/BigArrowRight.astro";
@@ -15,10 +16,13 @@ const wspNumber = contacto.whatsapp;
     class="relative h-[60vh] flex items-center justify-center overflow-hidden bg-surface-dark"
   >
     <div class="absolute inset-0 z-0">
-      <img
+      <Image
         src={imageReservar}
+        width={900}
+        height={600}
         class="w-full h-full object-cover opacity-40 scale-105"
         alt="Ambiente Pisco & Mar"
+        loading="eager"
       />
       <div
         class="absolute inset-0 bg-linear-to-b from-surface-dark/80 via-transparent via-80% to-surface-light"
@@ -155,6 +159,7 @@ const wspNumber = contacto.whatsapp;
                   placeholder="Nombre"
                 />
                 <label
+                  for="nombre"
                   class="absolute left-4 -top-3.5 text-ink-muted text-[10px] uppercase md:tracking-widest font-bold transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:left-0 peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:text-brands-primary pointer-events-none"
                   >Nombre Completo</label
                 >
@@ -169,6 +174,7 @@ const wspNumber = contacto.whatsapp;
                   placeholder="Teléfono"
                 />
                 <label
+                  for="telefono"
                   class="absolute left-4 -top-3.5 text-ink-muted text-[10px] uppercase md:tracking-widest font-bold transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:left-0 peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:text-brands-primary pointer-events-none"
                   >Teléfono de Contacto</label
                 >
@@ -178,6 +184,7 @@ const wspNumber = contacto.whatsapp;
             <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10">
               <div class="space-y-2">
                 <label
+                  for="fecha"
                   class="text-[10px] uppercase text-ink-muted md:tracking-widest font-bold"
                   >Fecha</label
                 >
@@ -190,6 +197,7 @@ const wspNumber = contacto.whatsapp;
               </div>
               <div class="space-y-2">
                 <label
+                  for="hora"
                   class="text-[10px] uppercase text-ink-muted md:tracking-widest font-bold"
                   >Hora</label
                 >
@@ -202,6 +210,7 @@ const wspNumber = contacto.whatsapp;
               </div>
               <div class="space-y-2">
                 <label
+                  for="personas"
                   class="text-[10px] uppercase text-ink-muted md:tracking-widest font-bold"
                   >Personas</label
                 >
@@ -220,6 +229,7 @@ const wspNumber = contacto.whatsapp;
 
             <div class="space-y-2">
               <label
+                for="notas"
                 class="text-[10px] uppercase text-ink-muted md:tracking-widest font-bold"
                 >Notas Especiales (Opcional)</label
               >

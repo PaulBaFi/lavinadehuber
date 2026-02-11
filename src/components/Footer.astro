@@ -24,6 +24,8 @@ const wsp = contacto.whatsapp;
           <a
             href={contacto.social.facebook}
             class="w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-brands-primary hover:text-black transition-all duration-300"
+            aria-label="Ver Facebook"
+            title="Ver Facebook"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -39,6 +41,8 @@ const wsp = contacto.whatsapp;
           <a
             href={contacto.social.instagram}
             class="w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-brands-primary hover:text-black transition-all duration-300"
+            aria-label="Ver Instagram"
+            title="Ver Instagram"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -63,9 +67,7 @@ const wsp = contacto.whatsapp;
         <ul class="space-y-3 font-body text-gray-400 text-sm">
           {
             horario.map((item) => (
-              <li
-                class={`flex justify-between border-b border-white/5 pb-1 ${item.dia === "Domingo" ? "text-white font-bold" : ""}`}
-              >
+              <li class="flex justify-between border-b border-white/5 pb-1">
                 <span>{item.dia}:</span>
                 <span class="text-white">
                   {item.hora_cierre
@@ -125,6 +127,7 @@ const wsp = contacto.whatsapp;
             class="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 contrast-125"
             style="border:0;"
             allowfullscreen=""
+            title="Abrir GPS"
             loading="lazy"></iframe>
 
           <a

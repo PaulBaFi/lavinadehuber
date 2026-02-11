@@ -148,7 +148,7 @@ import { Image } from "astro:assets";
               </div>
 
               <div class={`swiper swiper-${cat.id} pb-12!`}>
-                <div class="swiper-wrapper px-4">
+                <div class="swiper-wrapper">
                   {todosLosPlatos
                     .filter((plato) => plato.cat === cat.id)
                     .sort((a, b) => {
@@ -171,7 +171,7 @@ import { Image } from "astro:assets";
                             alt={plato.nombre}
                             width={400}
                             height={533}
-                            loading="lazy"
+                            loading="eager"
                             onload="this.parentElement.querySelector('.skeleton-loader').style.display='none'"
                             class="absolute inset-0 w-full h-full object-cover opacity-80 transition-all duration-1000 group-hover:scale-110 group-hover:opacity-60 grayscale-[0.3] group-hover:grayscale-0"
                           />
@@ -228,6 +228,8 @@ import { Image } from "astro:assets";
 </BaseLayout>
 
 <style>
+  @reference "../styles/global.css";
+
   .swiper-pagination-bullet {
     background: #cbd5e1;
     opacity: 1;
@@ -259,6 +261,48 @@ import { Image } from "astro:assets";
     width: 100%;
   }
 
+  [class^="btn-prev-"],
+  [class^="btn-next-"] {
+    @apply rounded-full w-10 h-10 flex items-center justify-center border-none shadow-md transition-all duration-300;
+    background: white;
+    color: var(--color-ink-primary);
+  }
+
+  [class^="btn-prev-"]:hover,
+  [class^="btn-next-"]:hover {
+    background: var(--color-brands-primary);
+    color: black;
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.4);
+  }
+
+  .swiper-button-disabled {
+    @apply opacity-30 cursor-not-allowed scale-100!;
+    filter: grayscale(1);
+  }
+
+  .swiper {
+    overflow: visible !important;
+    clip-path: inset(
+      -100px -100px -100px -100px
+    );
+  }
+
+  .swiper-wrapper {
+    @apply ease-out;
+  }
+
+  .swiper-pagination-bullet {
+    @apply w-2 h-2 transition-all duration-300;
+    background: #e2e8f0;
+    opacity: 1;
+  }
+
+  .swiper-pagination-bullet-active {
+    @apply w-6 rounded-full;
+    background: var(--color-brands-primary) !important;
+  }
+
   .skeleton-loader {
     overflow: hidden;
   }
@@ -283,7 +327,6 @@ import { Image } from "astro:assets";
     }
   }
 
-  /* Aseguramos que el skeleton se oculte suavemente */
   .skeleton-loader {
     transition: opacity 0.5s ease-out;
   }
@@ -336,8 +379,10 @@ import { Image } from "astro:assets";
 
     catIds.forEach((id) => {
       new Swiper(`.swiper-${id}`, {
-        slidesPerView: 1.3,
+        slidesPerView: 1.2,
         spaceBetween: 16,
+        slidesOffsetBefore: 16,
+        slidesOffsetAfter: 16,
         touchStartPreventDefault: false,
         loop: false,
         navigation: {
@@ -349,8 +394,16 @@ import { Image } from "astro:assets";
           clickable: true,
         },
         breakpoints: {
-          640: { slidesPerView: 2.2 },
-          1024: { slidesPerView: 3 },
+          640: {
+            slidesPerView: 2.2,
+            slidesOffsetBefore: 0,
+            slidesOffsetAfter: 0,
+          },
+          1024: {
+            slidesPerView: 3,
+            slidesOffsetBefore: 0,
+            slidesOffsetAfter: 0,
+          },
         },
       });
     });

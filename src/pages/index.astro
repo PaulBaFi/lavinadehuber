@@ -71,9 +71,8 @@ const specialties = todosLosPlatos.slice(0, 6);
           </a>
 
           <a
-            href={`https://wa.me/${contacto.whatsapp}`}
-            target="_blank"
-            class="group flex items-center justify-center gap-3 px-8 py-4 md:py-5 rounded-xl font-bold text-base md:text-lg text-white border-2 border-white/20 hover:border-brands-primary hover:text-brands-primary transition-all duration-300 backdrop-blur-sm"
+            href="/reservar"
+            class="group flex items-center justify-center gap-3 px-8 py-4 md:py-5 rounded-xl font-medium text-base md:text-lg text-white border-2 border-white/20 hover:border-brands-primary hover:text-brands-primary transition-all duration-300 backdrop-blur-sm"
           >
             <span>Reservar Mesa</span>
             <div
@@ -102,9 +101,12 @@ const specialties = todosLosPlatos.slice(0, 6);
             class="absolute -top-10 -left-10 w-64 h-64 bg-brands-primary/10 rounded-full blur-3xl"
           >
           </div>
-          <img
+          <Image
             src="/assets/images/historia-antes.png"
             alt="Historia La Viña"
+            width={250}
+            height={250}
+            loading="lazy"
             class="relative z-10 rounded-2xl shadow-2xl w-full h-[500px] object-cover"
           />
           <div

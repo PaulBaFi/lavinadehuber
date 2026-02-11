@@ -17,7 +17,7 @@ interface Props {
 const { title, desc } = Astro.props;
 ---
 
-<html lang="es">
+<html lang="es" class="light" style="color-scheme: light;">
   <head>
     <BaseHead />
     <title>{title}</title>
@@ -48,6 +48,8 @@ const { title, desc } = Astro.props;
           <div>
             <h3
               class="font-title text-3xl text-ink-primary italic font-bold leading-tight"
+              aria-label="Tu Selección"
+              title="Tu Selección"
             >
               Tu Selección
             </h3>
@@ -85,30 +87,34 @@ const { title, desc } = Astro.props;
           class="p-4 md:p-8 bg-surface-accent border-t border-b-base space-y-4 md:space-y-6 shadow-lg"
         >
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-            <div class="relative group">
+            <div class="relative group min-w-0">
               <input
                 type="text"
                 id="cust-name"
+                name="cust-name"
                 required
                 class="peer w-full bg-surface-accent border-b border-b-base py-3 text-ink-primary outline-none focus:border-brands-primary px-4 transition-all font-body placeholder-transparent"
                 placeholder="¿A nombre de quién?"
               />
               <label
-                class="absolute left-4 -top-3.5 text-ink-muted text-[10px] uppercase tracking-widest font-bold transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:left-0 peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:text-brands-primary pointer-events-none"
+                for="cust-name"
+                class="absolute whitespace-nowrap left-0 -top-3.5 text-ink-muted text-[10px] uppercase tracking-widest font-bold transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-3 peer-focus:left-0 peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:text-brands-primary pointer-events-none"
                 >¿A nombre de quién?</label
               >
             </div>
 
-            <div class="relative group">
+            <div class="relative group min-w-0">
               <input
                 type="text"
                 id="cust-address"
+                name="cust-address"
                 required
                 class="peer w-full bg-surface-accent border-b border-b-base py-3 text-ink-primary outline-none focus:border-brands-primary px-4 transition-all font-body placeholder-transparent"
                 placeholder="Dirección exacta en Pisco"
               />
               <label
-                class="absolute left-4 -top-3.5 text-ink-muted text-[10px] uppercase tracking-widest font-bold transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:left-0 peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:text-brands-primary pointer-events-none"
+                for="cust-address"
+                class="absolute whitespace-nowrap left-0 -top-3.5 text-ink-muted text-[10px] uppercase tracking-widest font-bold transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-3 peer-focus:left-0 peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:text-brands-primary pointer-events-none"
                 >Dirección de envío</label
               >
             </div>

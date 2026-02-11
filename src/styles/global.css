@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brands-primary: #d4af37; /* Dorado/Sazón */
+  --color-brands-primary: #d4af37;
 
   --color-surface-light: #ffffff;
-  --color-surface-accent: #f8f5f0; /* Un tono crema suave para secciones */
-  --color-surface-dark: #1a1a1a; /* Negro carbón para parrillas */
+  --color-surface-accent: #f8f5f0;
+  --color-surface-dark: #1a1a1a;
 
-  --color-ink-primary: #1e293b; /* Slate oscuro */
-  --color-ink-muted: #64748b; /* Slate suave para descripciones */
+  --color-ink-primary: #1e293b;
+  --color-ink-muted: #64748b;
 
   --color-b-base: #e2e8f0;
   --color-b-accent: #d4af37;
@@ -18,9 +18,14 @@
 }
 
 @layer base {
+  :root {
+    color-scheme: light;
+  }
+
   html {
     @apply scroll-smooth;
   }
+
   body {
     @apply bg-surface-light text-ink-primary font-body;
   }
@@ -33,6 +38,7 @@
   h6 {
     @apply font-title font-bold;
   }
+
 }
 
 .animate-fade-in {
