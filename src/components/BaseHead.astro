@@ -1,6 +1,12 @@
+---
+import { contacto } from "@/lib/data"; 
+
+// const siteUrl = "https://lavinadehuber.com/"
+const siteUrl = "https://lavinadehuber.vercel.app/"
+---
+
 <meta charset="utf-8" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="icon" href="/favicon.ico" />
 <meta name="viewport" content="width=device-width" />
 <meta name="color-scheme" content="light">
 
@@ -18,3 +24,62 @@
   type="font/woff2"
   crossorigin="anonymous"
 />
+
+<meta name="keywords" content="restaurante en pisco, pescados y mariscos, comida peruana, la viña de huber, restaurante familiar, brasas, pisco perú" />
+<link rel="canonical" href={`${siteUrl}/`} />
+<meta name="author" content="La Viña de Huber" />
+<meta name="robots" content="index, follow" />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content={`${siteUrl}/`} />
+<meta property="og:title" content="La Viña de Huber | Más de 40 años" />
+<meta property="og:description" content="Tradición culinaria en Pisco desde 1986. Pescados, mariscos y carnes de primera calidad." />
+<meta property="og:image" content={`${siteUrl}/og-image.png`} /> <meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={`${siteUrl}/`} />
+<meta property="twitter:title" content="La Viña de Huber | Restaurante en Pisco" />
+<meta property="twitter:description" content="Explora nuestra carta y reserva tu mesa. La mejor sazón de Pisco te espera." />
+<meta property="twitter:image" content={`${siteUrl}/og-image.png`} />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<meta name="theme-color" content="#d4af37" /> 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "La Viña de Huber",
+  "image": "${siteUrl}/og-image.png",
+  "@id": "",
+  "url": {siteUrl},
+  "telephone": {contacto.whatsapp}, 
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": {contacto.address},
+    "addressLocality": "Pisco",
+    "addressRegion": "Ica",
+    "addressCountry": "PE"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -13.71, 
+    "longitude": -76.20
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "opens": "11:30",
+    "closes": "17:00"
+  },
+  "servesCuisine": "Peruvian, Seafood",
+  "priceRange": "$$"
+}
+</script>
