@@ -1,0 +1,144 @@
+---
+import BigArrowRight from "@/icons/BigArrowRight.astro";
+import { contacto } from "@/lib/data";
+
+const wspNumber = contacto.whatsapp;
+---
+
+<form id="form-pagina-reserva" class="space-y-10">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+    <div class="relative group">
+      <input
+        type="text"
+        name="nombre"
+        required
+        class="peer w-full bg-surface-accent border-b border-b-base py-3 text-ink-primary outline-none focus:border-brands-primary px-4 transition-all font-body placeholder-transparent"
+        placeholder="Nombre"
+      />
+      <label
+        for="nombre"
+        class="absolute left-4 -top-3.5 text-ink-muted text-[10px] uppercase md:tracking-widest font-bold transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:left-0 peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:text-brands-primary pointer-events-none"
+        >Nombre Completo</label
+      >
+    </div>
+
+    <div class="relative group">
+      <input
+        type="tel"
+        name="telefono"
+        required
+        class="peer w-full bg-surface-accent border-b border-b-base py-3 text-ink-primary outline-none focus:border-brands-primary px-4 transition-all font-body placeholder-transparent"
+        placeholder="Teléfono"
+      />
+      <label
+        for="telefono"
+        class="absolute left-4 -top-3.5 text-ink-muted text-[10px] uppercase md:tracking-widest font-bold transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:left-0 peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:text-brands-primary pointer-events-none"
+        >Teléfono de Contacto</label
+      >
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10">
+    <div class="space-y-2">
+      <label
+        for="fecha"
+        class="text-[10px] uppercase text-ink-muted md:tracking-widest font-bold"
+        >Fecha</label
+      >
+      <input
+        type="date"
+        name="fecha"
+        required
+        class="w-full bg-surface-accent border border-b-base px-4 py-3 text-ink-primary outline-none focus:border-brands-primary transition-all font-body text-sm"
+      />
+    </div>
+    <div class="space-y-2">
+      <label
+        for="hora"
+        class="text-[10px] uppercase text-ink-muted md:tracking-widest font-bold"
+        >Hora</label
+      >
+      <input
+        type="time"
+        name="hora"
+        required
+        class="w-full bg-surface-accent border border-b-base px-4 py-3 text-ink-primary outline-none focus:border-brands-primary transition-all font-body text-sm"
+      />
+    </div>
+    <div class="space-y-2">
+      <label
+        for="personas"
+        class="text-[10px] uppercase text-ink-muted md:tracking-widest font-bold"
+        >Personas</label
+      >
+      <select
+        name="personas"
+        class="w-full bg-surface-accent border border-b-base px-4 py-3 text-ink-primary outline-none focus:border-brands-primary transition-all font-body text-sm appearance-none"
+      >
+        <option value="2">2 Comensales</option>
+        <option value="4" selected>4 Comensales</option>
+        <option value="6">6 Comensales</option>
+        <option value="8">8 Comensales</option>
+        <option value="+10">Evento Grupal</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="space-y-2">
+    <label
+      for="notas"
+      class="text-[10px] uppercase text-ink-muted md:tracking-widest font-bold"
+      >Notas Especiales (Opcional)</label
+    >
+    <textarea
+      name="notas"
+      rows="3"
+      class="w-full bg-surface-accent border border-b-base px-4 py-4 text-ink-primary outline-none focus:border-brands-primary transition-all font-body text-sm resize-none"
+      placeholder="Preferencias, alergias..."></textarea>
+  </div>
+
+  <div class="pt-6">
+    <button
+      type="submit"
+      class="w-full rounded-md bg-brands-primary/80 text-ink-primary py-3.5 md:py-6 text-lg uppercase font-bold hover:bg-brands-primary transition-all duration-500 shadow-2xl flex items-center justify-center gap-2 group"
+    >
+      Confirmar <span class="hidden md:block">Disponibilidad</span>
+      <BigArrowRight size="18" />
+    </button>
+    <p
+      class="text-center text-xs md:text-sm text-ink-muted mt-6 italic tracking-wide"
+    >
+      Nuestro equipo de reservas se contactará con usted en menos de 15 minutos.
+    </p>
+  </div>
+</form>
+
+<style>
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.5);
+    cursor: pointer;
+  }
+</style>
+
+<script is:inline define:vars={{ wspNumber }}>
+  const form = document.getElementById("form-pagina-reserva");
+
+  form.onsubmit = (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const d = Object.fromEntries(fd);
+
+    const text =
+      `*SOLICITUD DE RESERVA*%0A` +
+      `--------------------------%0A` +
+      `*Nombre:* ${d.nombre}%0A` +
+      `*Fecha:* ${d.fecha}%0A` +
+      `*Hora:* ${d.hora}%0A` +
+      `*Comensales:* ${d.personas}%0A` +
+      `*Teléfono:* ${d.telefono}%0A` +
+      `*Notas:* ${d.notas || "Sin notas"}`;
+
+    window.open(`https://wa.me/${wspNumber}?text=${text}`, "_blank");
+  };
+</script>

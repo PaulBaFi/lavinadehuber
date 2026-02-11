@@ -4,8 +4,7 @@ import { Image } from "astro:assets";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Phone from "@/icons/Phone.astro";
 import BigArrowRight from "@/icons/BigArrowRight.astro";
-
-const wspNumber = contacto.whatsapp;
+import ReservarForm from "@/components/ReservarForm.astro";
 ---
 
 <BaseLayout
@@ -50,256 +49,109 @@ const wspNumber = contacto.whatsapp;
     </div>
   </header>
 
-  <main class="relative z-20 -mt-24 pb-32">
-    <div class="container mx-auto px-4">
-      <div
-        class="rounded-2xl max-w-6xl mx-auto bg-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] border border-b-base flex flex-col lg:flex-row overflow-hidden"
-      >
-        <aside
-          class="lg:w-1/3 bg-ink-primary p-10 md:p-16 text-white flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/5"
+    <main class="relative z-20 -mt-24 pb-32">
+      <div class="container mx-auto px-4">
+        <div
+          class="rounded-2xl max-w-6xl mx-auto bg-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] border border-b-base flex flex-col lg:flex-row overflow-hidden"
         >
-          <div>
-            <h4 class="font-title text-3xl italic text-brands-primary mb-8">
-              Información
-            </h4>
+          <aside
+            class="lg:w-1/3 bg-ink-primary p-10 md:p-16 text-white flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/5"
+          >
+            <div>
+              <h4 class="font-title text-3xl italic text-brands-primary mb-8">
+                Información
+              </h4>
 
-            <div class="space-y-10">
-              <div class="space-y-4">
-                <p
-                  class="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold"
-                >
-                  Horarios
-                </p>
-                <div class="space-y-2">
-                  {
-                    horario.map((item) => (
-                      <div class="flex justify-between text-xs font-body border-b border-white/5 pb-2">
-                        <span class="text-white/60">{item.dia}</span>
-                        <span
-                          class={
-                            item.hora_cierre
-                              ? "text-white"
-                              : "text-brands-primary italic"
-                          }
-                        >
-                          {item.hora_cierre
-                            ? `${item.hora_apertura} - ${item.hora_cierre}`
-                            : "Cerrado"}
-                        </span>
-                      </div>
-                    ))
-                  }
+              <div class="space-y-10">
+                <div class="space-y-4">
+                  <p
+                    class="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold"
+                  >
+                    Horarios
+                  </p>
+                  <div class="space-y-2">
+                    {
+                      horario.map((item) => (
+                        <div class="flex justify-between text-xs font-body border-b border-white/5 pb-2">
+                          <span class="text-white/60">{item.dia}</span>
+                          <span
+                            class={
+                              item.hora_cierre
+                                ? "text-white"
+                                : "text-brands-primary italic"
+                            }
+                          >
+                            {item.hora_cierre
+                              ? `${item.hora_apertura} - ${item.hora_cierre}`
+                              : "Cerrado"}
+                          </span>
+                        </div>
+                      ))
+                    }
+                  </div>
+                </div>
+
+                <div class="space-y-4">
+                  <p
+                    class="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold"
+                  >
+                    Ubicación
+                  </p>
+                  <p
+                    class="text-sm font-body leading-relaxed text-white/80 italic"
+                  >
+                    {contacto.address}<br />
+                    Pisco, Perú.
+                  </p>
                 </div>
               </div>
-
-              <div class="space-y-4">
-                <p
-                  class="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold"
-                >
-                  Ubicación
-                </p>
-                <p
-                  class="text-sm font-body leading-relaxed text-white/80 italic"
-                >
-                  {contacto.address}<br />
-                  Pisco, Perú.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-12 pt-10 border-t border-white/5">
-            <a
-              href={`tel:${contacto.phone}`}
-              class="group flex items-center gap-4"
-            >
-              <div
-                class="w-12 h-12 rounded-full border border-brands-primary/30 flex items-center justify-center group-hover:bg-brands-primary transition-all duration-500"
-              >
-                <Phone
-                  class="w-5 h-5 text-brands-primary group-hover:text-black transition-colors"
-                />
-              </div>
-              <div>
-                <p
-                  class="text-[9px] uppercase tracking-widest text-white/40 font-bold"
-                >
-                  Reservas Teléfono
-                </p>
-                <p
-                  class="text-lg font-title text-white font-bold tracking-tighter"
-                >
-                  {contacto.phone}
-                </p>
-              </div>
-            </a>
-          </div>
-        </aside>
-
-        <div class="lg:w-2/3 px-6 py-10 md:p-16 bg-white">
-          <div class="mb-12">
-            <h2
-              class="font-title text-4xl text-ink-primary italic font-bold mb-2"
-            >
-              Solicitar Reserva
-            </h2>
-            <p class="text-ink-muted text-sm font-body italic">
-              Complete el formulario y confirmaremos su mesa vía WhatsApp.
-            </p>
-          </div>
-
-          <form id="form-pagina-reserva" class="space-y-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-              <div class="relative group">
-                <input
-                  type="text"
-                  name="nombre"
-                  required
-                  class="peer w-full bg-surface-accent border-b border-b-base py-3 text-ink-primary outline-none focus:border-brands-primary px-4 transition-all font-body placeholder-transparent"
-                  placeholder="Nombre"
-                />
-                <label
-                  for="nombre"
-                  class="absolute left-4 -top-3.5 text-ink-muted text-[10px] uppercase md:tracking-widest font-bold transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:left-0 peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:text-brands-primary pointer-events-none"
-                  >Nombre Completo</label
-                >
-              </div>
-
-              <div class="relative group">
-                <input
-                  type="tel"
-                  name="telefono"
-                  required
-                  class="peer w-full bg-surface-accent border-b border-b-base py-3 text-ink-primary outline-none focus:border-brands-primary px-4 transition-all font-body placeholder-transparent"
-                  placeholder="Teléfono"
-                />
-                <label
-                  for="telefono"
-                  class="absolute left-4 -top-3.5 text-ink-muted text-[10px] uppercase md:tracking-widest font-bold transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:left-0 peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:text-brands-primary pointer-events-none"
-                  >Teléfono de Contacto</label
-                >
-              </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10">
-              <div class="space-y-2">
-                <label
-                  for="fecha"
-                  class="text-[10px] uppercase text-ink-muted md:tracking-widest font-bold"
-                  >Fecha</label
+            <div class="mt-12 pt-10 border-t border-white/5">
+              <a
+                href={`tel:${contacto.phone}`}
+                class="group flex items-center gap-4"
+              >
+                <div
+                  class="w-12 h-12 rounded-full border border-brands-primary/30 flex items-center justify-center group-hover:bg-brands-primary transition-all duration-500"
                 >
-                <input
-                  type="date"
-                  name="fecha"
-                  required
-                  class="w-full bg-surface-accent border border-b-base px-4 py-3 text-ink-primary outline-none focus:border-brands-primary transition-all font-body text-sm"
-                />
-              </div>
-              <div class="space-y-2">
-                <label
-                  for="hora"
-                  class="text-[10px] uppercase text-ink-muted md:tracking-widest font-bold"
-                  >Hora</label
-                >
-                <input
-                  type="time"
-                  name="hora"
-                  required
-                  class="w-full bg-surface-accent border border-b-base px-4 py-3 text-ink-primary outline-none focus:border-brands-primary transition-all font-body text-sm"
-                />
-              </div>
-              <div class="space-y-2">
-                <label
-                  for="personas"
-                  class="text-[10px] uppercase text-ink-muted md:tracking-widest font-bold"
-                  >Personas</label
-                >
-                <select
-                  name="personas"
-                  class="w-full bg-surface-accent border border-b-base px-4 py-3 text-ink-primary outline-none focus:border-brands-primary transition-all font-body text-sm appearance-none"
-                >
-                  <option value="2">2 Comensales</option>
-                  <option value="4" selected>4 Comensales</option>
-                  <option value="6">6 Comensales</option>
-                  <option value="8">8 Comensales</option>
-                  <option value="+10">Evento Grupal</option>
-                </select>
-              </div>
+                  <Phone
+                    class="w-5 h-5 text-brands-primary group-hover:text-black transition-colors"
+                  />
+                </div>
+                <div>
+                  <p
+                    class="text-[9px] uppercase tracking-widest text-white/40 font-bold"
+                  >
+                    Reservas Teléfono
+                  </p>
+                  <p
+                    class="text-lg font-title text-white font-bold tracking-tighter"
+                  >
+                    {contacto.phone}
+                  </p>
+                </div>
+              </a>
             </div>
+          </aside>
 
-            <div class="space-y-2">
-              <label
-                for="notas"
-                class="text-[10px] uppercase text-ink-muted md:tracking-widest font-bold"
-                >Notas Especiales (Opcional)</label
+          <div class="lg:w-2/3 px-6 py-10 md:p-16 bg-white">
+            <div class="mb-12">
+              <h2
+                class="font-title text-4xl text-ink-primary italic font-bold mb-2"
               >
-              <textarea
-                name="notas"
-                rows="3"
-                class="w-full bg-surface-accent border border-b-base px-4 py-4 text-ink-primary outline-none focus:border-brands-primary transition-all font-body text-sm resize-none"
-                placeholder="Preferencias, alergias..."></textarea>
-            </div>
-
-            <div class="pt-6">
-              <button
-                type="submit"
-                class="w-full rounded-md bg-brands-primary/80 text-ink-primary py-3.5 md:py-6 text-lg uppercase font-bold hover:bg-brands-primary transition-all duration-500 shadow-2xl flex items-center justify-center gap-2 group"
-              >
-                Confirmar <span class="hidden md:block">Disponibilidad</span>
-                <BigArrowRight size="18" />
-              </button>
-              <p
-                class="text-center text-xs md:text-sm text-ink-muted mt-6 italic tracking-wide"
-              >
-                Nuestro equipo de reservas se contactará con usted en menos de
-                15 minutos.
+                Solicitar Reserva
+              </h2>
+              <p class="text-ink-muted text-sm font-body italic">
+                Complete el formulario y confirmaremos su mesa vía WhatsApp.
               </p>
             </div>
-          </form>
+
+            <ReservarForm />
+          </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
 </BaseLayout>
 
-<style>
-  @keyframes expand {
-    from {
-      transform: scaleX(0);
-    }
-    to {
-      transform: scaleX(1);
-    }
-  }
-  .animate-expand {
-    animation: expand 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  }
 
-  input[type="date"]::-webkit-calendar-picker-indicator,
-  input[type="time"]::-webkit-calendar-picker-indicator {
-    filter: invert(0.5);
-    cursor: pointer;
-  }
-</style>
-
-<script is:inline define:vars={{ wspNumber }}>
-  const form = document.getElementById("form-pagina-reserva");
-
-  form.onsubmit = (e) => {
-    e.preventDefault();
-    const fd = new FormData(form);
-    const d = Object.fromEntries(fd);
-
-    const text =
-      `*SOLICITUD DE RESERVA*%0A` +
-      `--------------------------%0A` +
-      `*Nombre:* ${d.nombre}%0A` +
-      `*Fecha:* ${d.fecha}%0A` +
-      `*Hora:* ${d.hora}%0A` +
-      `*Comensales:* ${d.personas}%0A` +
-      `*Teléfono:* ${d.telefono}%0A` +
-      `*Notas:* ${d.notas || "Sin notas"}`;
-
-    window.open(`https://wa.me/${wspNumber}?text=${text}`, "_blank");
-  };
-</script>
