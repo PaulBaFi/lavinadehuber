@@ -1,0 +1,31 @@
+---
+interface Props {
+  overline?: string;
+  title: string;
+  highlight: string;
+}
+
+const { overline, title, highlight } = Astro.props;
+---
+
+<div class="relative z-20 h-full flex items-center mx-auto justify-center">
+  <div class="container mx-auto px-4 text-center max-w-3xl">
+    {
+      overline && (
+        <span class="text-brands-primary font-bold tracking-[0.5em] uppercase text-xs mb-3 block animate-fade-in">
+          {overline}
+        </span>
+      )
+    }
+    <h1
+      class="animate-fade-in text-white text-4xl md:text-6xl lg:text-7xl font-title font-bold italic mb-8 drop-shadow-2xl"
+    >
+      {title}
+      <span class="text-brands-primary">{highlight}</span>
+    </h1>
+    <div
+      class="animate-fade-in w-16 h-1 bg-brands-primary mx-auto rounded-full"
+    >
+    </div>
+  </div>
+</div>

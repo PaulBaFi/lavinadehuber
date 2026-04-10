@@ -1,0 +1,87 @@
+---
+import BigArrowRight from "@/icons/BigArrowRight.astro";
+
+const { video } = Astro.props;
+---
+
+<header
+  class="relative w-full h-auto py-24 md:py-0 md:h-[90dvh] overflow-hidden flex items-center"
+>
+  <div
+    class="absolute inset-0 z-0"
+    style="clip-path: ellipse(140% 100% at 50% 0%);"
+  >
+    <video
+      class="absolute inset-0 w-full h-full object-cover z-0"
+      src={video}
+      muted
+      loop
+      autoplay
+      playsinline></video>
+
+    <div
+      class="absolute inset-0 bg-linear-to-r from-black/90 via-black/60 to-transparent z-10"
+    >
+    </div>
+  </div>
+
+  <div class="container mx-auto relative z-20 px-4 md:px-6">
+    <div class="max-w-4xl">
+      <div class="flex items-center gap-3 mb-4 md:mb-6 animate-fade-in">
+        <div class="w-8 md:w-12 h-[2px] bg-brands-primary"></div>
+        <span
+          class="text-brands-primary font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase text-[10px] md:text-sm"
+        >
+          Sazón Marina & Parrillas
+        </span>
+      </div>
+
+      <h1
+        class="animate-fade-in custom-delay-200 text-white text-4xl md:text-6xl lg:text-7xl font-bold font-title leading-[1.1] md:leading-[0.9] drop-shadow-2xl"
+      >
+        La viña de Húber:
+        <span class="text-brands-primary italic font-light block md:inline"
+          >tradición pisqueña.</span
+        >
+      </h1>
+
+      <p
+        class="animate-fade-in custom-delay-300 text-gray-300 mt-6 md:mt-8 text-base md:text-xl max-w-xl font-body leading-relaxed opacity-90"
+      >
+        Descubre la esencia de Pisco en cada bocado. Más de cuatro décadas
+        perfeccionando el arte del mar y la brasa.
+      </p>
+
+      <div
+        class="animate-fade-in custom-delay-500 flex flex-col sm:flex-row gap-4 md:gap-6 mt-10 md:mt-12"
+      >
+        <a
+          href="/carta"
+          class="relative group overflow-hidden bg-brands-primary text-black px-8 py-4 md:px-10 rounded-xl font-bold text-base md:text-lg shadow-[0_20px_40px_rgba(var(--color-primary-rgb),0.3)] transition-all duration-400 hover:-translate-y-1 text-center"
+        >
+          <span class="relative z-10 flex items-center justify-center gap-2">
+            Ver Carta
+            <BigArrowRight size="18" strokeWidth="2" />
+          </span>
+          <div
+            class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+          >
+          </div>
+        </a>
+
+        <a
+          href="/reservar"
+          class="group relative overflow-hidden flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-medium text-base md:text-lg text-white border-2 border-white/20 hover:border-brands-primary hover:text-brands-primary transition-all duration-300 backdrop-blur-sm"
+        >
+          <span>Reservar Mesa</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="hidden md:block absolute bottom-10 left-1/2 -translate-x-1/2 z-20 animate-bounce opacity-50"
+  >
+    <div class="w-px h-12 bg-linear-to-b from-white to-transparent"></div>
+  </div>
+</header>

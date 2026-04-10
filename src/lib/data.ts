@@ -143,13 +143,3 @@ export const reseñas = [
     estrellas: 5,
   },
 ];
-
-interface FAQ {
-  p: string;
-  r: string;
-}
-
-export const faqs: FAQ[] = [
-  { p: "", r: "" },
-  { p: "", r: "" },
-];

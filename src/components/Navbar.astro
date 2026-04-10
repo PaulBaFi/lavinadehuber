@@ -42,6 +42,7 @@ const navLinks = [
           {contacto.phone}
         </a>
       </div>
+
       <div class="flex gap-4 uppercase">
         <a
           href={contacto.social.instagram}
@@ -61,11 +62,11 @@ const navLinks = [
     <div class="container mx-auto px-4 flex justify-between items-center">
       <a
         href="/"
-        class="text-xl md:text-2xl font-bold tracking-tighter font-title animate-fade-in custom-delay-200"
+        class="text-xl md:text-2xl uppercase font-bold tracking-tighter font-title animate-fade-in custom-delay-200"
         id="nav-logo"
       >
         <span class="text-brands-primary">LA VIÑA </span><span
-          class="text-white uppercase font-light ml-1">de Húber</span
+          class="text-white font-light ml-1">DE HÚBER</span
         >
       </a>
 
@@ -85,7 +86,7 @@ const navLinks = [
         }
         <a
           href="/reservar"
-          class="bg-brands-primary text-black px-6 py-2.5 rounded-full font-bold hover:bg-white transition-all transform hover:scale-105 font-title animate-fade-in custom-delay-500 shadow-lg"
+          class="bg-brands-primary text-black px-6 py-2.5 rounded-full font-bold hover:bg-white transition-all transform hover:scale-105 font-title animate-fade-in duration-200 shadow-lg delay-500"
         >
           Reservar
         </a>
@@ -98,6 +99,7 @@ const navLinks = [
             id="cart-pulse"
             class="absolute inset-0 m-auto w-10 h-10 rounded-full bg-brands-primary/40 opacity-0 pointer-events-none hidden"
           ></span>
+
           <svg
             class="relative z-10"
             width="24"
@@ -115,6 +117,7 @@ const navLinks = [
               d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
             ></path>
           </svg>
+
           <span
             id="cart-count"
             class="absolute top-1 right-1 bg-brands-primary text-black text-[9px] font-bold w-5 h-5 rounded-full flex items-center justify-center opacity-0 transition-all z-20 shadow-sm border-2 border-white"
@@ -138,6 +141,7 @@ const navLinks = [
             ></path></svg
           >
         </button>
+
         <button id="menu-open" class="text-white p-2 md:hidden relative z-50">
           <svg
             width="32"
@@ -188,7 +192,7 @@ const navLinks = [
     </div>
 
     <div
-      class="absolute bottom-12 w-full px-6 text-center space-y-4 opacity-0 transition-opacity duration-700 delay-300"
+      class="absolute bottom-12 w-full px-6 text-center space-y-4 opacity-0 transition-opacity duration-700 custom-delay-300"
       id="mobile-footer"
     >
       <div class="h-px bg-white/10 w-24 mx-auto mb-6"></div>
